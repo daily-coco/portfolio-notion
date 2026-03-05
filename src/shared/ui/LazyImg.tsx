@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 
+import * as m from '../../styles/markdownStyles.css';
+
 export default function LazyImg({ src, alt = '', ...rest }: Props) {
   const ref = useRef<HTMLImageElement | null>(null);
   const [ready, setReady] = useState(false);
@@ -30,18 +32,15 @@ export default function LazyImg({ src, alt = '', ...rest }: Props) {
       ref={ref}
       src={ready ? src : undefined}
       data-src={src}
-      alt={alt}
+      data-loaded={loaded ? 'true' : 'false'}
+      alt={alt ?? ''}
       loading='lazy'
       decoding='async'
       onLoad={() => setLoaded(true)}
-      style={{
-        maxWidth: '100%',
-        height: 'auto',
-        display: 'block',
-        opacity: loaded ? 1 : 0,
-        transition: 'opacity 200ms ease',
+      onError={(e) => {
+        (e.currentTarget as HTMLImageElement).style.display = 'none';
       }}
-      {...rest}
+      className={m.img}
     />
   );
 }
