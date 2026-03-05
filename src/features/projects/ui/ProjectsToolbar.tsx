@@ -1,3 +1,4 @@
+import type { CompositionEventHandler } from 'react';
 import { Button } from '../../../shared/ui/Button/Button';
 import type { SortKey } from '../model/types';
 import * as s from './ProjectsToolbar.css';
@@ -10,6 +11,8 @@ type Props = {
   onChangeSortKey: (next: SortKey) => void;
 
   onClear: () => void;
+  onCompositionStart?: CompositionEventHandler<HTMLInputElement>;
+  onCompositionEnd?: CompositionEventHandler<HTMLInputElement>;
 };
 
 export default function ProjectsToolbar({
@@ -18,6 +21,8 @@ export default function ProjectsToolbar({
   sortKey,
   onChangeSortKey,
   onClear,
+  onCompositionStart,
+  onCompositionEnd,
 }: Props) {
   return (
     <div className={s.bar}>
@@ -34,9 +39,6 @@ export default function ProjectsToolbar({
         <option value='date_asc'>날짜 오래된순</option>
         <option value='title_asc'>제목 가나다순</option>
       </select>
-      <Button variant='ghost' onClick={onClear}>
-        초기화
-      </Button>
       <div className={s.searchWrap}>
         <label className={s.srOnly} htmlFor='search'>
           검색
@@ -47,6 +49,8 @@ export default function ProjectsToolbar({
           value={q}
           onChange={(e) => onChangeQ(e.target.value)}
           placeholder='검색어 입력'
+          onCompositionStart={onCompositionStart}
+          onCompositionEnd={onCompositionEnd}
         />
         {q ? (
           <button
@@ -54,12 +58,14 @@ export default function ProjectsToolbar({
             className={s.clearX}
             onClick={() => onChangeQ('')}
             aria-label='검색어 지우기'
-            title='검색어 지우기'
           >
             ×
           </button>
         ) : null}
       </div>
+      <Button variant='ghost' onClick={onClear}>
+        초기화
+      </Button>
     </div>
   );
 }

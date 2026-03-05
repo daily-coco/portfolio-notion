@@ -1,9 +1,10 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetailPage from './pages/ProjectDetailPage';
 import './styles/global.css';
 import { AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
+import Home from './pages/Home';
+import ScrollToHash from './shared/ui/ScrollToHash';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -19,9 +20,10 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <ScrollToHash />
       <AnimatePresence mode='wait'>
         <Routes location={location} key={location.pathname}>
-          <Route path='/' element={<ProjectsPage />} />
+          <Route path='/' element={<Home />} />
           <Route path='/projects/:slug' element={<ProjectDetailPage />} />
           <Route path='*' element={<Navigate to='/' replace />}></Route>
         </Routes>

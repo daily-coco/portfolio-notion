@@ -1,24 +1,51 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { CompositionEventHandler } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDebouncedValue } from './useDebouncedValue';
-import type { Project } from '../features/projects/model/types';
+import type { Project, SortKey } from '../features/projects/model/types';
 import {
   filterProjects,
   getAllTags,
   sortProjects,
 } from '../features/projects/model/projectSelectors';
 
-import type { SortKey } from '../features/projects/model/types';
+function parseTags(raw: string | null) {
+  return raw
+    ? raw
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : [];
+}
+
 export function useProjectFilters(projects: Project[]) {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [q, setQ] = useState(() => searchParams.get('q') ?? '');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(() =>
+    parseTags(searchParams.get('tags'))
+  );
   const [sortKey, setSortKey] = useState<SortKey>(() => {
     const v = searchParams.get('sort') as SortKey | null;
     return v ?? 'date_desc';
   });
 
   const debouncedQ = useDebouncedValue(q, 300);
+
+  // ✅ IME 조합 상태는 ref가 더 안정적 (렌더 안 일으킴)
+  const composingRef = useRef(false);
+  const onSearchCompositionStart: CompositionEventHandler<
+    HTMLInputElement
+  > = () => {
+    composingRef.current = true;
+  };
+  const onSearchCompositionEnd: CompositionEventHandler<
+    HTMLInputElement
+  > = () => {
+    composingRef.current = false;
+  };
 
   const clearFilters = () => {
     setQ('');
@@ -43,63 +70,54 @@ export function useProjectFilters(projects: Project[]) {
   const allTags = useMemo(() => getAllTags(projects), [projects]);
 
   useEffect(() => {
-    const next = new URLSearchParams(searchParams);
+    // ✅ 조합 중이면 URL 업데이트 금지
+    if (composingRef.current) return;
 
-    //q
-    if (q.trim()) next.set('q', debouncedQ.trim());
-    else next.delete('q');
+    const next = new URLSearchParams();
 
-    // sort
+    const nextQ = debouncedQ.trim();
+    if (nextQ) next.set('q', nextQ);
+
     if (sortKey !== 'date_desc') next.set('sort', sortKey);
-    else next.delete('sort');
 
-    //tags
     if (selectedTags.length > 0) next.set('tags', selectedTags.join(','));
-    else next.delete('tags');
 
-    setSearchParams(next, { replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedQ, sortKey, selectedTags, setSearchParams]);
+    const nextString = next.toString();
+    const currentString = searchParams.toString();
+    if (nextString === currentString) return;
 
-  useEffect(() => {
-    const nextQ = searchParams.get('q') ?? '';
-    const nextSort =
-      (searchParams.get('sort') as SortKey | null) ?? 'date_desc';
-    const rawTags = searchParams.get('tags');
-    const nextTags = rawTags
-      ? rawTags
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean)
-      : [];
-
-    // 불필요한 setState 루프 방지
-    if (nextQ !== q) setQ(nextQ);
-    if (nextSort !== sortKey) setSortKey(nextSort);
-
-    const smaeTags =
-      nextTags.length === selectedTags.length &&
-      nextTags.every((t, i) => t === selectedTags[i]);
-
-    if (!smaeTags) setSelectedTags(nextTags);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+    navigate(
+      {
+        pathname: location.pathname,
+        search: nextString ? `?${nextString}` : '',
+        hash: location.hash,
+      },
+      { replace: true }
+    );
+  }, [
+    debouncedQ,
+    sortKey,
+    selectedTags,
+    searchParams,
+    navigate,
+    location.pathname,
+    location.hash,
+  ]);
 
   return {
-    // state
     q,
     selectedTags,
     sortKey,
 
-    // setters/actions
     setQ,
     setSortKey,
     toggleTag,
     clearFilters,
 
-    // derived
     filtered,
     allTags,
+
+    onSearchCompositionStart,
+    onSearchCompositionEnd,
   };
 }
