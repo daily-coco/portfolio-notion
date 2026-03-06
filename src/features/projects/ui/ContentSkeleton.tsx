@@ -1,28 +1,15 @@
-type Props = { lines?: number };
+import * as s from './ContentSkeleton.css';
+import Skeleton from './Skeleton';
 
-export default function ContentSkeleton({ lines = 10 }: Props) {
+export default function ContentSkeleton() {
   return (
-    <div style={{ display: 'grid', gap: 10 }}>
-      {Array.from({ length: lines }).map((_, i) => (
-        <div
-          key={i}
-          style={{
-            height: 14,
-            borderRadius: 8,
-            opacity: 0.6,
-            background: 'rgba(0,0,0,0.08)',
-          }}
-        />
-      ))}
-      <div
-        style={{
-          height: 220,
-          borderRadius: 12,
-          opacity: 0.5,
-          background: 'rgba(0,0,0,0.06)',
-          marginTop: 8,
-        }}
-      />
+    <div className={s.skDetailWrap} aria-hidden='true'>
+      <Skeleton height={24} width='40%' radius={8} />
+      <Skeleton height={14} width='60%' radius={8} />
+
+      <div className={s.bodyBlock}>
+        <Skeleton height={220} radius={12} />
+      </div>
     </div>
   );
 }

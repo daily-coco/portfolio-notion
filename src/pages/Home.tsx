@@ -12,7 +12,7 @@ export default function Home() {
         </section>
 
         <section id='projects'>
-          <ProjectsSection title='Projects' showHeader />
+          <ProjectsSection showHeader />
         </section>
 
         <section id='blog'>

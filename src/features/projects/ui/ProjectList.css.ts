@@ -2,38 +2,46 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '../../../styles/tokens.css';
 
 export const grid = style({
-  marginTop: vars.space.lg,
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(260px,1fr))',
   gap: vars.space.md,
-  listStyle: 'none',
-  margin: 0,
-  padding: 0,
+  marginTop: vars.space.lg,
 });
 
 export const link = style({
-  textDecoration: 'none',
-  color: 'inherit',
   display: 'block',
+  height: '100%',
+  color: 'inherit',
+  textDecoration: 'none',
 });
 
 export const cardInner = style({
-  display: 'grid',
-  gap: vars.space.sm,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'stretch',
+  justifyContent: 'flex-start',
+  gap: vars.space.xs,
+  height: '100%',
+  minWidth: 0,
 });
 
 export const figure = style({
-  margin: 0,
+  overflow: 'hidden',
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignContent: 'center',
+  width: '100%',
+  height: 140,
+  borderRadius: vars.radius.md,
+  border: `1px solid ${vars.color.border}`,
+  background: '#fff',
 });
 
 export const thumb = style({
-  width: '100%',
-  height: 140,
   objectFit: 'cover',
-  borderRadius: vars.radius.md,
-  border: `1px solid ${vars.color.border}`,
   display: 'block',
-  background: vars.color.surface,
+  height: '100%',
 });
 
 export const title = style({
@@ -44,6 +52,46 @@ export const title = style({
 export const date = style({
   fontSize: vars.font.size.sm,
   color: vars.color.mutedText,
+});
+
+export const cardTagsWrap = style({
+  overflowX: 'auto',
+  overflowY: 'hidden',
+  WebkitOverflowScrolling: 'touch',
+  scrollbarWidth: 'none',
+  touchAction: 'pan-x',
+  minWidth: 0,
+  width: '100%',
+
+  selectors: {
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
+});
+export const cardTagsList = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '2px',
+  minWidth: 'max-content',
+  whiteSpace: 'nowrap',
+});
+export const cardTagsTag = style({
+  flex: '0 0 auto',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  whiteSpace: 'nowrap',
+  padding: '6px 12px',
+  fontSize: 11,
+  borderRadius: '999px',
+  border: '1px solid #ddd',
+  background: '#fff',
+});
+export const cardTagsMore = style({
+  opacity: 0.6,
+  margin: ' 0 0 0 2px',
+  fontSize: 11,
 });
 
 export const tags = style({

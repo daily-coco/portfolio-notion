@@ -1,3 +1,5 @@
+import * as s from './Skeleton.css';
+
 type Props = {
   height?: number;
   width?: number | string;
@@ -11,30 +13,15 @@ export default function Skeleton({
 }: Props) {
   return (
     <div
+      className={s.root}
       style={{
         height,
         width,
         borderRadius: radius,
-        background: '#eee',
-        overflow: 'hidden',
-        position: 'relative',
       }}
+      aria-hidden='true'
     >
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          transform: 'translateX(-100%)',
-          background:
-            'linear-gradient(90deg, rgba(238,238,238,0) 0%, rgba(255,255,255,0.8) 50%, rgba(238,238,238,0) 100%)',
-          animation: 'shimmer 1.2s infinite',
-        }}
-      />
-      <style>
-        {`@keyframes shimmer {
-          100% { transform: translateX(100%); }
-        }`}
-      </style>
+      <div className={s.shimmerLayer} />
     </div>
   );
 }

@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import ProjectDetailPage from './pages/ProjectDetailPage';
-import './styles/global.css';
-import { AnimatePresence } from 'framer-motion';
 import { useEffect } from 'react';
 import Home from './pages/Home';
+import ProjectDetailPage from './pages/ProjectDetailPage';
 import ScrollToHash from './shared/ui/ScrollToHash';
+import { AnimatePresence } from 'framer-motion';
+import './styles/global.css';
 
 function ScrollToTop() {
   const { pathname } = useLocation();

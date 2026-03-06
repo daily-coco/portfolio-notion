@@ -2,12 +2,12 @@ import { useProjectFilters } from '../../../hooks/useProjectFilters';
 import { useProjects } from '../../../hooks/useProjects';
 import ProjectList from './ProjectList';
 import ProjectsToolbar from './ProjectsToolbar';
-import Skeleton from './Skeleton';
 import EmptyState from './Status/EmptyState';
 import ErrorState from './Status/ErrorState';
 import TagFilter from './TagFilter';
 
 import * as s from './ProjectsSection.css';
+import ProjectsSectionSkeleton from './ProjectsSectionSkeleton';
 
 type Props = {
   title?: string;
@@ -40,32 +40,7 @@ export default function ProjectsSection({
   } = useProjectFilters(projects);
 
   if (isLoading && projects.length === 0) {
-    return (
-      <div className={s.loadingWrap}>
-        <div className={s.skTitleBlock}>
-          <Skeleton height={28} width={180} />
-          <Skeleton height={14} width={120} />
-        </div>
-
-        <div className={s.skToolbarRow}>
-          <Skeleton height={32} width={140} />
-          <Skeleton height={32} width={80} />
-          <Skeleton height={32} width={220} />
-        </div>
-
-        <div className={s.skListBlock}>
-          {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} height={18} />
-          ))}
-        </div>
-
-        <div className={s.skTagsRow}>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <Skeleton key={i} height={30} width={80} radius={999} />
-          ))}
-        </div>
-      </div>
-    );
+    return <ProjectsSectionSkeleton showHeader={showHeader} />;
   }
 
   if (isError) {
@@ -93,9 +68,7 @@ export default function ProjectsSection({
           <h2 className={s.title}>{title}</h2>
           <div className={s.meta}>
             조회 : {filtered.length} / 전체 : {projects.length}
-            {isFetching ? (
-              <span style={{ marginLeft: 8 }}>업데이트 중…</span>
-            ) : null}
+            {isFetching ? <span>업데이트 중…</span> : null}
           </div>
         </div>
       ) : null}
