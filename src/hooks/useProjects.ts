@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { Project } from '../features/projects/model/types';
+import type { Project } from '../shared/types/project';
 import { sortProjectsNewestFirst } from '../features/projects/lib/sortProjects';
 import { fetchProjects } from '../api/projects.client';
 

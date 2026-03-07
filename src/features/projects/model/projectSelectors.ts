@@ -1,4 +1,4 @@
-import type { Project, SortKey } from './types';
+import type { Project, SortKey } from '../../../shared/types/project';
 
 function toTime(date?: string) {
   if (!date) return 0;

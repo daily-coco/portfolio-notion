@@ -1,4 +1,4 @@
-import type { Project } from '../features/projects/model/types';
+import type { Project } from '../shared/types/project';
 
 export type ProjectContent = { slug: string; markdown: string };
 

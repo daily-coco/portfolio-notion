@@ -1,4 +1,4 @@
-import type { Project } from '../model/types';
+import type { Project } from '../../../shared/types/project';
 
 function toTime(d?: string) {
   if (!d) return null;

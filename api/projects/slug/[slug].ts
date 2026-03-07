@@ -59,17 +59,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const data: any = await notionRes.json();
     const page = data.results?.[0];
+
     if (!page?.id) return res.status(404).json({ message: 'Not found' });
 
     const pageId = page.id;
-
     const mdBlocks = await n2m.pageToMarkdown(pageId);
     const markdown = n2m.toMarkdownString(mdBlocks).parent;
 
     cache.set(slug, { markdown, ts: Date.now() });
 
     return res.status(200).json({ slug, markdown });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.error('[api/projects/slug] failed', e);
     return res.status(500).json({ message: 'failed' });
   }

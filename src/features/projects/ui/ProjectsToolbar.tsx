@@ -1,6 +1,6 @@
 import type { CompositionEventHandler } from 'react';
 import { Button } from '../../../shared/ui/Button/Button';
-import type { SortKey } from '../model/types';
+import type { SortKey } from '../../../shared/types/project';
 import * as s from './ProjectsToolbar.css';
 
 type Props = {

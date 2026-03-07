@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { CompositionEventHandler } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDebouncedValue } from './useDebouncedValue';
-import type { Project, SortKey } from '../features/projects/model/types';
+import type { Project, SortKey } from '../shared/types/project';
 import {
   filterProjects,
   getAllTags,

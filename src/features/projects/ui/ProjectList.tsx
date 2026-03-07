@@ -1,4 +1,4 @@
-import type { Project } from '../model/types';
+import type { Project } from '../../../shared/types/project';
 import { Link } from 'react-router-dom';
 import Card from '../../../shared/ui/Card/Card';
 import * as s from './ProjectList.css';
@@ -48,8 +48,8 @@ export default function ProjectList({ projects }: Props) {
                   </div>
                 ) : null}
 
-                {/* {p.summary ? (
-                  <div className={s.summary}>{p.summary}</div>
+                {/* {p.projectName ? (
+                  <div className={s.summary}>{p.projectName}</div>
                 ) : null} */}
               </Card>
             </Link>

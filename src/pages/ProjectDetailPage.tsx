@@ -163,8 +163,8 @@ export default function ProjectDetailPage() {
             className={s.thumb}
           />
         ) : null}
-        {project.summary ? (
-          <p className={s.summary}>{project.summary}</p>
+        {project.projectName ? (
+          <p className={s.summary}>{project.projectName}</p>
         ) : null}
 
         <h1 className={s.title}>{project.title}</h1>
