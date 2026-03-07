@@ -1,153 +1,76 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
-import { useProjects } from '../hooks/useProjects';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-
-import Card from '../shared/ui/Card/Card';
-import { Button } from '../shared/ui/Button/Button';
-
-import Skeleton from '../features/projects/ui/Skeleton';
-import ErrorState from '../features/projects/ui/Status/ErrorState';
+import { useProjectDetail } from '../hooks/useProjectDetail';
+import RouteTransition from '../shared/ui/RouteTransition';
 import EmptyState from '../features/projects/ui/Status/EmptyState';
+import ProjectDetailHeader from '../features/projects/ui/detail/ProjectDetailHeader';
+import ProjectDetailNav from '../features/projects/ui/detail/ProjectDetailPostNav';
+import ProjectDetailContent from '../features/projects/ui/detail/ProjectDetailContent';
 
-import LazyImg from '../shared/ui/LazyImg';
+import { Button } from '../shared/ui/Button/Button';
+import * as s from './ProjectDetailPage.css';
+import ErrorState from '../features/projects/ui/Status/ErrorState';
 import ContentSkeleton from '../features/projects/ui/ContentSkeleton';
 
-import RouteTransition from '../shared/ui/RouteTransition';
-import { useProjectContentBySlug } from '../hooks/useProjectContentBySlug';
-
-import * as s from './ProjectDetailPage.css';
-import * as m from '../styles/markdownStyles.css';
-
 export default function ProjectDetailPage() {
-  const queryClient = useQueryClient();
-
   const navigate = useNavigate();
-
   const { slug } = useParams<{ slug: string }>();
+
   const {
-    data: projects = [],
+    project,
+    content,
     isLoading,
     isError,
     error,
-    refetch,
-  } = useProjects();
+    refetchProjects,
+    isContentLoading,
+    isContentError,
+    refetchContent,
+    isContentFetching,
+    prevProject,
+    nextProject,
+    onHoverPrefetch,
+    onLeavePrefetch,
+  } = useProjectDetail(slug);
 
-  const project = useMemo(
-    () => projects.find((p) => p.slug === slug),
-    [projects, slug]
-  );
-  const {
-    data: content,
-    isLoading: isContentLoading,
-    isError: isContentError,
-    refetch: refetchContent,
-    isFetching: isContentFetching,
-  } = useProjectContentBySlug(slug);
-
-  const hoverTimer = useRef<number | null>(null);
-
-  const prefetchContent = useCallback(
-    (targetSlug?: string) => {
-      if (!targetSlug) return;
-
-      const cached = queryClient.getQueryData(['projectContent', targetSlug]);
-      if (cached) return;
-
-      queryClient.prefetchQuery({
-        queryKey: ['projectContent', targetSlug],
-        queryFn: ({ signal }) =>
-          fetch(`/api/projects/slug/${targetSlug}`, { signal }).then((r) => {
-            if (!r.ok) throw new Error('Failed to prefetch content');
-            return r.json();
-          }),
-        staleTime: 1000 * 60 * 30,
-      });
-    },
-    [queryClient]
-  );
-  const onHoverPrefetch = (targetSlug?: string) => {
-    if (!targetSlug) return;
-
-    const conn = (navigator as any).connection;
-    const saveData = !!conn?.saveData;
-    const slow = ['slow-2g', '2g'].includes(conn?.effectiveType);
-    if (saveData || slow) return;
-
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-    hoverTimer.current = window.setTimeout(() => {
-      prefetchContent(targetSlug);
-    }, 200);
-  };
-
-  const onLeave = () => {
-    if (hoverTimer.current) window.clearTimeout(hoverTimer.current);
-  };
-
-  const currentIndex = useMemo(
-    () => projects.findIndex((p) => p.slug === slug),
-    [projects, slug]
-  );
-
-  const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : undefined;
-  const nextProject =
-    currentIndex >= 0 && currentIndex < projects.length - 1
-      ? projects[currentIndex + 1]
-      : undefined;
-
-  useEffect(() => {
-    prefetchContent(prevProject?.slug);
-    prefetchContent(nextProject?.slug);
-  }, [prevProject?.slug, nextProject?.slug, prefetchContent]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [slug]);
-
-  if (isLoading && projects.length === 0) {
-    return (
-      <div className={s.page}>
-        <Skeleton height={28} width={200} />
-        <Skeleton height={16} width={120} />
-        <Skeleton height={200} />
-      </div>
-    );
+  if (isLoading) {
+    return <ContentSkeleton />;
   }
 
   if (isError) {
     return (
-      <div className={s.page}>
+      <article className={s.page}>
         <ErrorState
-          message={(error as Error)?.message ?? '알 수 없는 오류'}
-          onRetry={() => refetch()}
+          message={
+            (error as Error)?.message ?? '알 수 없는 오류가 발생했습니다.'
+          }
+          onRetry={refetchProjects}
         />
         <div style={{ marginTop: 12 }}>
           <Button variant='ghost' onClick={() => navigate('/')}>
             목록으로
           </Button>
         </div>
-      </div>
+      </article>
     );
   }
 
   if (!project) {
     return (
-      <div className={s.page}>
+      <article className={s.page}>
         <EmptyState
           title='프로젝트를 찾을 수 없어요'
           message='잘못된 접근이거나 삭제된 프로젝트입니다.'
           actionLabel='목록으로'
           onAction={() => navigate('/', { replace: true })}
         />
-      </div>
+      </article>
     );
   }
+
   return (
     <RouteTransition>
-      <div key={slug} className={s.page}>
+      {/* slug 변경 시 상세 트리를 재마운트해서 전환 애니메이션/스크롤 초기화를 안정적으로 적용 */}
+      <article key={slug} className={s.page}>
         <div className={s.backRow}>
           <Button variant='ghost' onClick={() => navigate(-1)}>
             ← 뒤로가기
@@ -156,173 +79,25 @@ export default function ProjectDetailPage() {
             목록으로
           </Button>
         </div>
-        {project.thumbnailUrl ? (
-          <img
-            src={project.thumbnailUrl}
-            alt={`${project.title} 썸네일`}
-            className={s.thumb}
-          />
-        ) : null}
-        {project.projectName ? (
-          <p className={s.summary}>{project.projectName}</p>
-        ) : null}
 
-        <h1 className={s.title}>{project.title}</h1>
+        <ProjectDetailHeader project={project} />
 
-        <div className={s.meta}>
-          {project.startDate ?? '—'}{' '}
-          {project.endDate ? `~ ${project.endDate}` : ''}
-        </div>
-        {project.tags.length > 0 ? (
-          <div className={s.tags}>
-            {project.tags.map((t) => (
-              <span key={t} className={s.tag}>
-                {t}
-              </span>
-            ))}
-          </div>
-        ) : null}
+        <ProjectDetailContent
+          markdown={content?.markdown}
+          isLoading={isContentLoading}
+          isError={isContentError}
+          onRetry={refetchContent}
+        />
 
-        {project.url ? (
-          <Button
-            as='a'
-            href={project.url}
-            target='_blank'
-            rel='noreferrer'
-            variant='primary'
-            title='새창열림'
-          >
-            프로젝트 Real URL
-          </Button>
-        ) : null}
-
-        {/* Notion Page Content -- Start */}
-        <div className={s.contentWrap}>
-          <Card padding='md'>
-            <div className={s.contentCard}>
-              {isContentLoading ? (
-                <ContentSkeleton lines={12} />
-              ) : isContentError ? (
-                <div style={{ display: 'grid', gap: 10 }}>
-                  <ErrorState
-                    title='본문을 불러오지 못했어요'
-                    onRetry={() => refetchContent?.()}
-                  />
-                </div>
-              ) : (
-                <article className={s.markdown}>
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    rehypePlugins={[
-                      [rehypeHighlight, { detect: true, ignoreMissing: true }],
-                    ]}
-                    components={{
-                      h1: ({ children, ...props }) => (
-                        <h1 {...props} className={m.h1}>
-                          {children}
-                        </h1>
-                      ),
-                      h2: ({ children, ...props }) => (
-                        <h2 {...props} className={m.h2}>
-                          {children}
-                        </h2>
-                      ),
-                      p: ({ children, ...props }) => (
-                        <p {...props} className={m.p}>
-                          {children}
-                        </p>
-                      ),
-                      ul: ({ children, ...props }) => (
-                        <ul {...props} className={m.ul}>
-                          {children}
-                        </ul>
-                      ),
-                      img: (props) => <LazyImg {...props} />,
-                      a: ({ children, ...props }) => (
-                        <a
-                          {...props}
-                          className={m.link}
-                          target='_blank'
-                          title='새창열림'
-                          rel='noreferrer'
-                        >
-                          {children}
-                        </a>
-                      ),
-                      table: ({ ...props }) => (
-                        <div className={s.tableScroll}>
-                          <table {...props} />
-                        </div>
-                      ),
-                      // 핵심: inline code vs code block 분리
-                      code: ({ className, children, ...props }) => {
-                        const isBlock = className?.includes('language-');
-                        if (!isBlock) {
-                          return (
-                            <code {...props} className={m.markInlineCode}>
-                              {children}
-                            </code>
-                          );
-                        }
-                        // rehype-highlight가 pre/code 구조에 class를 붙여 하이라이트함
-                        return (
-                          <code {...props} className={className}>
-                            {children}
-                          </code>
-                        );
-                      },
-
-                      // quote → 카드 스타일
-                      blockquote: ({ children, ...props }) => {
-                        return (
-                          <blockquote {...props} className={m.quoteCard}>
-                            {children}
-                          </blockquote>
-                        );
-                      },
-                    }}
-                  >
-                    {content?.markdown ?? ''}
-                  </ReactMarkdown>
-                </article>
-              )}
-            </div>
-          </Card>
-        </div>
-        {/* Notion Page Content -- End */}
-
-        <div className={s.navRow}>
-          {prevProject ? (
-            <Button
-              variant='ghost'
-              disabled={isContentFetching}
-              onMouseEnter={() => onHoverPrefetch(prevProject.slug)}
-              onMouseLeave={onLeave}
-              onClick={() => navigate(`/projects/${prevProject.slug}`)}
-            >
-              {isContentFetching
-                ? '이동 중...'
-                : `← 이전: ${prevProject.title}`}
-            </Button>
-          ) : (
-            <span className={s.dim}>← 이전 없음</span>
-          )}
-
-          {nextProject ? (
-            <Button
-              variant='ghost'
-              disabled={isContentFetching}
-              onMouseEnter={() => onHoverPrefetch(nextProject.slug)}
-              onMouseLeave={onLeave}
-              onClick={() => navigate(`/projects/${nextProject.slug}`)}
-            >
-              {isContentFetching ? '이동 중...' : `다음: ${nextProject.title}→`}
-            </Button>
-          ) : (
-            <span className={s.dim}>다음 없음 →</span>
-          )}
-        </div>
-      </div>
+        <ProjectDetailNav
+          prevProject={prevProject}
+          nextProject={nextProject}
+          isFetching={isContentFetching}
+          onHoverPrefetch={onHoverPrefetch}
+          onLeavePrefetch={onLeavePrefetch}
+          onNavigate={navigate}
+        />
+      </article>
     </RouteTransition>
   );
 }

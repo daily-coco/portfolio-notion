@@ -8,5 +8,5 @@ export type Project = {
   startDate?: string;
   endDate?: string;
   thumbnailUrl?: string;
-  summary?: string;
+  projectName?: string;
 };

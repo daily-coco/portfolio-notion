@@ -1,7 +1,9 @@
 import type { CompositionEventHandler } from 'react';
 import { Button } from '../../../shared/ui/Button/Button';
 import type { SortKey } from '../../../shared/types/project';
+
 import * as s from './ProjectsToolbar.css';
+import * as a11y from '../../../styles/a11y.css';
 
 type Props = {
   q: string;
@@ -26,7 +28,7 @@ export default function ProjectsToolbar({
 }: Props) {
   return (
     <div className={s.bar}>
-      <label className={s.srOnly} htmlFor='sort'>
+      <label className={a11y.srOnly} htmlFor='sort'>
         정렬
       </label>
       <select
@@ -40,7 +42,7 @@ export default function ProjectsToolbar({
         <option value='title_asc'>제목 가나다순</option>
       </select>
       <div className={s.searchWrap}>
-        <label className={s.srOnly} htmlFor='search'>
+        <label className={a11y.srOnly} htmlFor='search'>
           검색
         </label>
         <input
