@@ -9,6 +9,7 @@ export const vars = createGlobalTheme(':root', {
     border: '#e5e7eb',
     accent: '#3b82f6',
     danger: '#ef4444',
+    textSubtle: '#666',
   },
   space: {
     xs: '4px',
@@ -22,6 +23,7 @@ export const vars = createGlobalTheme(':root', {
     sm: '6px',
     md: '10px',
     lg: '16px',
+    xl: '22px',
     full: '999px',
   },
   shadow: {

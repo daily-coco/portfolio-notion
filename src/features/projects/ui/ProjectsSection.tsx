@@ -62,7 +62,7 @@ export default function ProjectsSection({
   }
 
   return (
-    <div className={s.section}>
+    <section className={s.section}>
       {showHeader ? (
         <div className={s.header}>
           <h2 className={s.title}>{title}</h2>
@@ -97,6 +97,6 @@ export default function ProjectsSection({
         selectedTags={selectedTags}
         onToggleTag={toggleTag}
       />
-    </div>
+    </section>
   );
 }
