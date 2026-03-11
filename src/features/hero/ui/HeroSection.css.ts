@@ -54,11 +54,7 @@ export const title = style({
 });
 
 export const titleBreak = style({
-  '@media': {
-    'screen and (max-width: 640px)': {
-      display: 'none',
-    },
-  },
+  margin: '0 0 0 5px',
 });
 
 export const description = style({

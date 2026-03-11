@@ -17,16 +17,21 @@ export const inner = style({
   padding: `${vars.space.lg} ${vars.space.xl}`,
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   gap: vars.space.lg,
 });
 
-export const logo = style({
-  fontSize: vars.font.size.lg,
-  fontWeight: 700,
-  color: vars.color.text,
-  textDecoration: 'none',
+export const logoLink = style({
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   flexShrink: 0,
+});
+
+export const logoImage = style({
+  width: '50px',
+  height: '50px',
+  display: 'block',
 });
 
 export const nav = style({});

@@ -1,30 +1,27 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '../styles/tokens.css';
 
-export const page = style({
-  padding: vars.space.xl,
+export const detailPageWrap = style({
   display: 'grid',
-  gap: vars.space.md,
+  justifyContent: 'center',
+  padding: '30px 0',
+  '@media': {
+    'screen and (max-width:768px)': {
+      padding: '50px 20px',
+    },
+  },
 });
 
-export const backRow = style({
+export const detailPageInner = style({
+  maxWidth: 920,
+  width: '100%',
+});
+
+export const detailPageTopNav = style({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
   gap: vars.space.sm,
-});
-
-export const container = style({
-  maxWidth: 920,
-  width: '100%',
-});
-
-export const thumb = style({
-  width: '100%',
-  maxWidth: 920,
-  borderRadius: vars.radius.lg,
-  border: `1px solid ${vars.color.border}`,
-  display: 'block',
-  background: vars.color.surface,
 });
 
 export const title = style({
@@ -56,6 +53,43 @@ export const tag = style({
   border: `1px solid ${vars.color.border}`,
   fontSize: vars.font.size.sm,
   background: 'transparent',
+});
+
+export const detailHeadWrap = style({
+  display: 'flex',
+  flexWrap: 'wrap',
+  flexDirection: 'row',
+  gap: 12,
+  '@media': {
+    'screen and (max-width:768px)': {
+      flexDirection: 'column',
+    },
+  },
+});
+export const detailInfo = style({
+  flex: 1,
+});
+export const thumbnailWrap = style({
+  overflow: 'hidden',
+  display: 'flex',
+  alignContent: 'center',
+  justifyContent: 'center',
+  width: '340px',
+  borderRadius: vars.radius.lg,
+  border: `1px solid ${vars.color.border}`,
+  '@media': {
+    'screen and (max-width:768px)': {
+      width: '100%',
+    },
+  },
+});
+export const thumbnailImg = style({
+  display: 'inline-flex',
+  '@media': {
+    'screen and (max-width:768px)': {
+      width: '260px',
+    },
+  },
 });
 
 export const contentWrap = style({

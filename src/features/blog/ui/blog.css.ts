@@ -1,14 +1,13 @@
 import { style } from '@vanilla-extract/css';
 
 export const section = style({
-  padding: '96px 0',
+  padding: '96px 25px',
 });
 
 export const inner = style({
   width: '100%',
   maxWidth: '1200px',
   margin: '0 auto',
-  padding: '0 24px',
 });
 
 export const header = style({
@@ -53,38 +52,29 @@ export const moreLink = style({
   },
 });
 
-export const list = style({
+export const postList = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, minmax(0, 1fr))',
+  gridTemplateColumns: 'repeat(2, 1fr)',
   gap: '24px',
-
   '@media': {
-    'screen and (max-width: 1024px)': {
-      gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-    },
-    'screen and (max-width: 767px)': {
+    'screen and (max-width:768px)': {
       gridTemplateColumns: 'repeat(1, minmax(0, 1fr))',
     },
   },
 });
 
-export const item = style({
-  listStyle: 'none',
-});
-
-export const cardLink = style({
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100%',
+export const postItem = style({
+  position: 'relative',
   overflow: 'hidden',
-  borderRadius: '20px',
   border: '1px solid #e5e7eb',
+  borderRadius: '1rem',
   background: '#fff',
-  textDecoration: 'none',
-  color: '#111',
   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-
   selectors: {
+    '&:first-of-type': {
+      gridRow: '1 / 4',
+    },
+
     '&:hover': {
       transform: 'translateY(-4px)',
       boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
@@ -92,7 +82,59 @@ export const cardLink = style({
   },
 });
 
-export const thumbnailWrap = style({
+export const postItemFeatured = style({});
+
+export const postBadgeWrapFeatured = style({
+  '@media': {
+    'screen and (max-width: 768px)': {
+      position: 'absolute',
+      top: 10,
+      left: 10,
+    },
+  },
+});
+
+export const postContentFeatured = style({
+  '@media': {
+    'screen and (max-width: 768px)': {
+      position: 'absolute',
+      top: 50,
+      left: 10,
+    },
+  },
+});
+
+export const postLink = style({
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+  padding: '10px',
+  height: '100%',
+  color: '#111',
+
+  selectors: {
+    '&::after': {
+      zIndex: -1,
+      content: '',
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      transform: 'translateX(100%)',
+      opacity: 0.4,
+      width: '100%',
+      height: '100%',
+      backgroundColor: '#2A7B9B',
+      background:
+        'linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(87, 199, 133, 1) 40%, rgba(237, 221, 83, 1) 100%)',
+    },
+    '&:hover::after': {
+      transform: 'translateX(0)',
+      transition: 'transform 1s ease',
+    },
+  },
+});
+
+export const postThumbnailWrap = style({
   position: 'relative',
   width: '100%',
   aspectRatio: '16 / 10',
@@ -100,14 +142,14 @@ export const thumbnailWrap = style({
   background: '#f3f4f6',
 });
 
-export const thumbnail = style({
+export const postThumbnail = style({
   width: '100%',
   height: '100%',
   objectFit: 'cover',
   display: 'block',
 });
 
-export const thumbnailFallback = style({
+export const postThumbnailFallback = style({
   width: '100%',
   height: '100%',
   display: 'flex',
@@ -133,19 +175,38 @@ export const metaRow = style({
   flexWrap: 'wrap',
 });
 
-export const category = style({
+export const postLinkFeatured = style({});
+
+export const postBadgeWrap = style({
+  zIndex: 1,
+  position: 'absolute',
+  top: 5,
+  left: 5,
+  display: 'flex',
+  gap: 4,
+  flexDirection: 'row',
+  '@media': {
+    'screen and (max-width:768px)': {
+      position: 'relative',
+      top: 0,
+      left: 0,
+    },
+  },
+});
+
+export const recentBadge = style({
   display: 'inline-flex',
   alignItems: 'center',
   height: '28px',
   padding: '0 10px',
   borderRadius: '999px',
-  background: '#f3f4f6',
+  background: '#111',
   fontSize: '12px',
   fontWeight: 600,
-  color: '#555',
+  color: '#fff',
 });
 
-export const recentBadge = style({
+export const categoryBadge = style({
   display: 'inline-flex',
   alignItems: 'center',
   height: '28px',
@@ -166,12 +227,23 @@ export const postTitle = style({
   wordBreak: 'keep-all',
 });
 
-export const summary = style({
+export const postContent = style({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const postSummary = style({
   margin: 0,
   fontSize: '14px',
   lineHeight: 1.7,
   color: '#555',
   wordBreak: 'keep-all',
+});
+
+export const postDate = style({
+  fontSize: '13px',
+  lineHeight: 1.4,
+  color: '#777',
 });
 
 export const bottomRow = style({
@@ -182,13 +254,6 @@ export const bottomRow = style({
   gap: '12px',
   paddingTop: '4px',
 });
-
-export const date = style({
-  fontSize: '13px',
-  lineHeight: 1.4,
-  color: '#777',
-});
-
 export const arrow = style({
   fontSize: '18px',
   lineHeight: 1,

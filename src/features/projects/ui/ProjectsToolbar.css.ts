@@ -3,9 +3,8 @@ import { vars } from '../../../styles/tokens.css';
 
 export const bar = style({
   display: 'flex',
-  gap: vars.space.md,
   alignItems: 'center',
-  flexWrap: 'wrap',
+  gap: vars.space.md,
 });
 
 export const control = style({
@@ -28,7 +27,6 @@ export const control = style({
 export const searchWrap = style({
   position: 'relative',
   flex: '1 1 240px',
-  minWidth: 220,
 });
 
 export const searchInput = style([

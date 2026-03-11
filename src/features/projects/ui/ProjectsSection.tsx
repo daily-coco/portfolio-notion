@@ -5,11 +5,15 @@ import ProjectsToolbar from './ProjectsToolbar';
 import EmptyState from './Status/EmptyState';
 import ErrorState from './Status/ErrorState';
 import TagFilter from './TagFilter';
+import ProjectsSectionSkeleton from './ProjectsSectionSkeleton';
+import clsx from 'clsx';
 
 import * as s from './ProjectsSection.css';
-import ProjectsSectionSkeleton from './ProjectsSectionSkeleton';
+import * as common from '../../../shared/styles/section.css';
 
 type Props = {
+  id: string;
+  className?: string;
   title?: string;
   showHeader?: boolean; // 원페이지에서는 제목 숨기고 싶을 때 사용
 };
@@ -17,6 +21,8 @@ type Props = {
 export default function ProjectsSection({
   title = '프로젝트',
   showHeader = true,
+  id,
+  className,
 }: Props) {
   const {
     data: projects = [],
@@ -62,7 +68,7 @@ export default function ProjectsSection({
   }
 
   return (
-    <section className={s.section}>
+    <section id={id} className={clsx(common.sectionBase, s.section, className)}>
       {showHeader ? (
         <div className={s.header}>
           <h2 className={s.title}>{title}</h2>
@@ -81,6 +87,11 @@ export default function ProjectsSection({
         onClear={clearFilters}
       />
 
+      <TagFilter
+        tags={allTags}
+        selectedTags={selectedTags}
+        onToggleTag={toggleTag}
+      />
       {filtered.length === 0 ? (
         <EmptyState
           title='조건에 맞는 프로젝트가 없어요'
@@ -91,12 +102,6 @@ export default function ProjectsSection({
       ) : (
         <ProjectList projects={filtered} />
       )}
-
-      <TagFilter
-        tags={allTags}
-        selectedTags={selectedTags}
-        onToggleTag={toggleTag}
-      />
     </section>
   );
 }

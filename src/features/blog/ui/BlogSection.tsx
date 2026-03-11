@@ -1,9 +1,15 @@
+import clsx from 'clsx';
 import BlogCard from './BlogList';
 import * as s from './blog.css';
+import * as common from '../../../shared/styles/section.css';
+type Props = {
+  id: string;
+  className?: string;
+};
 
-export default function BlogSection() {
+export default function BlogSection({ id, className }: Props) {
   return (
-    <section className={s.section}>
+    <section id={id} className={clsx(common.sectionBase, s.section, className)}>
       <div className={s.inner}>
         <div className={s.header}>
           <div>
@@ -12,7 +18,7 @@ export default function BlogSection() {
           </div>
 
           <a href='' target='_blank' rel='noreferrer' className={s.moreLink}>
-            티스토리 보러가기
+            블로그 글 더보기
           </a>
         </div>
 

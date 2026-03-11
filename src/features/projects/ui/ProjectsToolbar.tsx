@@ -29,7 +29,7 @@ export default function ProjectsToolbar({
   return (
     <div className={s.bar}>
       <label className={a11y.srOnly} htmlFor='sort'>
-        정렬
+        프로젝트 정렬
       </label>
       <select
         id='sort'
@@ -37,13 +37,13 @@ export default function ProjectsToolbar({
         value={sortKey}
         onChange={(e) => onChangeSortKey(e.target.value as SortKey)}
       >
-        <option value='date_desc'>날짜 최신순</option>
-        <option value='date_asc'>날짜 오래된순</option>
-        <option value='title_asc'>제목 가나다순</option>
+        <option value='date_desc'>최신순</option>
+        <option value='date_asc'>오래된순</option>
+        <option value='title_asc'>제목순</option>
       </select>
       <div className={s.searchWrap}>
         <label className={a11y.srOnly} htmlFor='search'>
-          검색
+          프로젝트 내 검색
         </label>
         <input
           id='search'

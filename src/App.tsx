@@ -1,33 +1,19 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import ProjectDetailPage from './pages/ProjectDetailPage';
-import ScrollToHash from './shared/ui/ScrollToHash';
-import { AnimatePresence } from 'framer-motion';
+import RootLayout from './layout/RootLayout';
 import './styles/global.css';
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
-
 function App() {
-  const location = useLocation();
   return (
     <>
-      <ScrollToTop />
-      <ScrollToHash />
-      <AnimatePresence mode='wait'>
-        <Routes location={location} key={location.pathname}>
+      <Routes>
+        <Route element={<RootLayout />}>
           <Route path='/' element={<Home />} />
           <Route path='/projects/:slug' element={<ProjectDetailPage />} />
           <Route path='*' element={<Navigate to='/' replace />}></Route>
-        </Routes>
-      </AnimatePresence>
+        </Route>
+      </Routes>
     </>
   );
 }

@@ -2,16 +2,25 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export default function ScrollToHash() {
-  const { hash } = useLocation();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!hash) return;
+    if (!location.hash) return;
 
-    requestAnimationFrame(() => {
-      const el = document.querySelector(hash);
-      el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }, [hash]);
+    const id = location.hash.replace('#', '');
+
+    const scroll = () => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    };
+
+    requestAnimationFrame(scroll);
+  }, [location.pathname, location.hash]);
 
   return null;
 }
