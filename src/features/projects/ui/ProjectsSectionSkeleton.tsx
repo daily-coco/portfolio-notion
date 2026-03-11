@@ -20,6 +20,11 @@ export default function ProjectsSectionSkeleton({
         </div>
       ) : null}
 
+      <div className={s.skTagsRow}>
+        {Array.from({ length: tagCount }).map((_, i) => (
+          <Skeleton key={i} height={30} width={80} radius={999} />
+        ))}
+      </div>
       <div className={s.skToolbarRow}>
         <Skeleton height={32} width={140} />
         <Skeleton height={32} width={80} />
@@ -29,12 +34,6 @@ export default function ProjectsSectionSkeleton({
       <div className={s.skListBlock}>
         {Array.from({ length: itemCount }).map((_, i) => (
           <Skeleton key={i} height={18} />
-        ))}
-      </div>
-
-      <div className={s.skTagsRow}>
-        {Array.from({ length: tagCount }).map((_, i) => (
-          <Skeleton key={i} height={30} width={80} radius={999} />
         ))}
       </div>
     </div>

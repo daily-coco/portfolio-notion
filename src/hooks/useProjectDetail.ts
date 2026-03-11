@@ -14,7 +14,7 @@ export function useProjectDetail(slug?: string) {
 
   const {
     data: projects = [],
-    isLoading,
+    isLoading: isProjectsLoading,
     isError,
     error,
     refetch: refetchProjects,
@@ -44,6 +44,11 @@ export function useProjectDetail(slug?: string) {
       ? projects[currentIndex + 1]
       : undefined;
 
+  const hasContent = content?.markdown != null;
+
+  const isInitialLoading =
+    isProjectsLoading || (!!slug && !hasContent && isContentLoading);
+
   const prefetchContent = useCallback(
     (targetSlug?: string) => {
       if (!targetSlug) return;
@@ -60,6 +65,7 @@ export function useProjectDetail(slug?: string) {
     },
     [queryClient]
   );
+
   const onHoverPrefetch = useCallback(
     (targetSlug?: string) => {
       if (!targetSlug) return;
@@ -79,6 +85,7 @@ export function useProjectDetail(slug?: string) {
   const onLeavePrefetch = useCallback(() => {
     if (hoverTimer.current) {
       window.clearTimeout(hoverTimer.current);
+      hoverTimer.current = null;
     }
   }, []);
 
@@ -86,10 +93,6 @@ export function useProjectDetail(slug?: string) {
     prefetchContent(prevProject?.slug);
     prefetchContent(nextProject?.slug);
   }, [prevProject?.slug, nextProject?.slug, prefetchContent]);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-  }, [slug]);
 
   useEffect(() => {
     return () => {
@@ -102,7 +105,8 @@ export function useProjectDetail(slug?: string) {
   return {
     project,
     content,
-    isLoading,
+    isInitialLoading,
+    isProjectsLoading,
     isError,
     error,
     refetchProjects,

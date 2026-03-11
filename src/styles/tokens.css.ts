@@ -17,7 +17,7 @@ export const vars = createGlobalTheme(':root', {
     md: '12px',
     lg: '16px',
     xl: '24px',
-    xxl: '32px',
+    xxl: '30px',
   },
   radius: {
     sm: '6px',
@@ -33,6 +33,7 @@ export const vars = createGlobalTheme(':root', {
 
   font: {
     size: {
+      xs: '11px',
       sm: '12px',
       md: '14px',
       lg: '16px',

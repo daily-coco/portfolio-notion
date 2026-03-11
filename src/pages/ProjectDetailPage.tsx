@@ -12,7 +12,6 @@ import ContentSkeleton from '../features/projects/ui/ContentSkeleton';
 
 import { Button } from '../shared/ui/Button/Button';
 import * as s from './ProjectDetailPage.css';
-import * as a11y from '../styles/a11y.css';
 
 export default function ProjectDetailPage() {
   const navigate = useNavigate();
@@ -21,12 +20,10 @@ export default function ProjectDetailPage() {
   const {
     project,
     content,
-    isLoading,
+    isInitialLoading,
     isError,
-    isFetching,
     error,
     refetchProjects,
-    isContentLoading,
     isContentError,
     refetchContent,
     isContentFetching,
@@ -40,10 +37,12 @@ export default function ProjectDetailPage() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [slug]);
 
-  if (isLoading) {
+  if (isInitialLoading) {
     return (
       <article className={s.detailPageWrap}>
-        <ContentSkeleton />
+        <div className={s.detailPageInner}>
+          <ContentSkeleton />
+        </div>
       </article>
     );
   }
@@ -51,16 +50,18 @@ export default function ProjectDetailPage() {
   if (isError) {
     return (
       <article className={s.detailPageWrap}>
-        <ErrorState
-          message={
-            (error as Error)?.message ?? '알 수 없는 오류가 발생했습니다.'
-          }
-          onRetry={refetchProjects}
-        />
-        <div style={{ marginTop: 12 }}>
-          <Button variant='ghost' onClick={() => navigate('/')}>
-            목록으로
-          </Button>
+        <div className={s.detailPageInner}>
+          <ErrorState
+            message={
+              (error as Error)?.message ?? '알 수 없는 오류가 발생했습니다.'
+            }
+            onRetry={refetchProjects}
+          />
+          <div style={{ marginTop: 12 }}>
+            <Button variant='ghost' onClick={() => navigate('/')}>
+              목록으로
+            </Button>
+          </div>
         </div>
       </article>
     );
@@ -69,12 +70,14 @@ export default function ProjectDetailPage() {
   if (!project) {
     return (
       <article className={s.detailPageWrap}>
-        <EmptyState
-          title='프로젝트를 찾을 수 없어요'
-          message='잘못된 접근이거나 삭제된 프로젝트입니다.'
-          actionLabel='목록으로'
-          onAction={() => navigate('/', { replace: true })}
-        />
+        <div className={s.detailPageInner}>
+          <EmptyState
+            title='프로젝트를 찾을 수 없어요'
+            message='잘못된 접근이거나 삭제된 프로젝트입니다.'
+            actionLabel='목록으로'
+            onAction={() => navigate('/', { replace: true })}
+          />
+        </div>
       </article>
     );
   }
@@ -82,20 +85,11 @@ export default function ProjectDetailPage() {
   return (
     <article className={s.detailPageWrap}>
       <div className={s.detailPageInner}>
-        {/* <div className={s.detailPageTopNav}>
-          <Button variant='ghost' onClick={() => navigate(-1)}>
-            ← <span className={a11y.srOnly}>뒤로가기</span>
-          </Button>
-          <Button variant='ghost' onClick={() => navigate('/')}>
-            목록으로
-          </Button>
-        </div> */}
-
         <ProjectDetailHeader project={project} />
 
         <ProjectDetailContent
           markdown={content?.markdown}
-          isLoading={isContentLoading}
+          isLoading={false}
           isError={isContentError}
           onRetry={refetchContent}
         />

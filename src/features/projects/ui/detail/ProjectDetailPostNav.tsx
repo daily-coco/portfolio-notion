@@ -1,7 +1,9 @@
 import { Button } from '../../../../shared/ui/Button/Button';
 import type { Project } from '../../../../shared/types/project';
+import { ArrowBigLeftDash, ArrowBigRightDash } from 'lucide-react';
 
 import * as s from '../../../../pages/ProjectDetailPage.css';
+import * as a11y from '../../../../styles/a11y.css';
 
 type Props = {
   prevProject?: Project;
@@ -20,35 +22,50 @@ export default function ProjectDetailNav({
   onLeavePrefetch,
   onNavigate,
 }: Props) {
+  const isPrevDisabled = isFetching || !prevProject;
+  const isNextDisabled = isFetching || !nextProject;
+
   return (
-    <div className={s.navRow}>
+    <nav className={s.navRow} aria-label='프로젝트 이전 다음 글 이동'>
       {prevProject ? (
         <Button
           variant='ghost'
-          disabled={isFetching}
+          disabled={isPrevDisabled}
           onMouseEnter={() => onHoverPrefetch(prevProject.slug)}
           onMouseLeave={onLeavePrefetch}
-          onClick={() => onNavigate(`/projects/${prevProject.slug}`)}
+          onClick={() => {
+            if (!prevProject) return;
+            onNavigate(`/projects/${prevProject.slug}`);
+          }}
+          className={s.pageNavButton}
         >
-          ← 이전: {prevProject.title}
+          <span className={a11y.srOnly}>
+            {prevProject ? `이전 프로젝트 글` : '이전 글 없음'}
+          </span>
+          <ArrowBigLeftDash />
+          <span className={s.pageNavText}>{prevProject.title}</span>
         </Button>
-      ) : (
-        <span className={s.dim}>← 이전 없음</span>
-      )}
+      ) : null}
 
       {nextProject ? (
         <Button
           variant='ghost'
-          disabled={isFetching}
+          disabled={isNextDisabled}
           onMouseEnter={() => onHoverPrefetch(nextProject.slug)}
           onMouseLeave={onLeavePrefetch}
-          onClick={() => onNavigate(`/projects/${nextProject.slug}`)}
+          onClick={() => {
+            if (!nextProject) return;
+            onNavigate(`/projects/${nextProject.slug}`);
+          }}
+          className={s.pageNavButton}
         >
-          다음: {nextProject.title}→
+          <span className={a11y.srOnly}>
+            {nextProject ? `다음 프로젝트 글` : '다음 글 없음'}
+          </span>
+          <span className={s.pageNavText}>{nextProject.title}</span>
+          <ArrowBigRightDash />
         </Button>
-      ) : (
-        <span className={s.dim}>다음 없음 →</span>
-      )}
-    </div>
+      ) : null}
+    </nav>
   );
 }

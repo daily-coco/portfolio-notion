@@ -2,10 +2,10 @@ import { globalStyle, style } from '@vanilla-extract/css';
 import { vars } from './tokens.css';
 
 export const h1 = style({
-  fontSize: '28px',
+  margin: '24px 0 12px',
+  fontSize: '26px',
   fontWeight: 800,
   lineHeight: 1.2,
-  margin: '24px 0 12px',
 });
 
 export const h2 = style({});
@@ -21,7 +21,6 @@ export const ul = style({});
 export const li = style({});
 
 export const quoteCard = style({
-  margin: '16px 0',
   padding: '14px 16px',
   borderRadius: '14px',
   border: '1px solid rgba(255,255,255,0.12)',
@@ -43,7 +42,7 @@ export const img = style({
 export const markdown = style({
   overflow: 'hidden',
   fontSize: 16,
-  lineHeight: 1.75,
+  lineHeight: 1.65,
   wordBreak: 'break-word',
 });
 
@@ -64,6 +63,15 @@ globalStyle(`${markdown} p`, {
 globalStyle(`${markdown} ul, ${markdown} ol`, {
   margin: `${vars.space.sm} 0`,
   paddingLeft: '1.2em',
+});
+globalStyle(`${markdown} li`, {
+  position: 'relative',
+});
+globalStyle(`${markdown} li:before`, {
+  content: '-',
+  position: 'absolute',
+  top: 0,
+  left: '-1.2em',
 });
 
 globalStyle(`${markdown} a`, {

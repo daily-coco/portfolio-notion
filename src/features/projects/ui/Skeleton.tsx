@@ -1,7 +1,7 @@
 import * as s from './Skeleton.css';
 
 type Props = {
-  height?: number;
+  height?: number | string;
   width?: number | string;
   radius?: number;
 };

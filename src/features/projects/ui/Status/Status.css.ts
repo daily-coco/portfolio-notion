@@ -1,9 +1,10 @@
 import { style } from '@vanilla-extract/css';
 
 export const wrap = style({
-  padding: 24,
   display: 'grid',
   gap: 12,
+  padding: 24,
+  justifyItems: 'center',
   borderRadius: 16,
 });
 
@@ -18,6 +19,6 @@ export const desc = style({
 
 export const actions = style({
   display: 'flex',
-  gap: 8,
   flexWrap: 'wrap',
+  gap: 8,
 });

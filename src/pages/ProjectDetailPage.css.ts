@@ -24,51 +24,19 @@ export const detailPageTopNav = style({
   gap: vars.space.sm,
 });
 
-export const title = style({
-  margin: 0,
-  fontSize: vars.font.size.xxl,
-});
-
-export const meta = style({
-  color: vars.color.mutedText,
-  fontSize: vars.font.size.sm,
-});
-
-export const summary = style({
-  margin: 0,
-  maxWidth: 920,
-  lineHeight: 1.6,
-});
-
-export const tags = style({
-  display: 'flex',
-  gap: vars.space.xs,
-  flexWrap: 'wrap',
-  alignItems: 'center',
-});
-
-export const tag = style({
-  padding: `${vars.space.xs} ${vars.space.sm}`,
-  borderRadius: vars.radius.full,
-  border: `1px solid ${vars.color.border}`,
-  fontSize: vars.font.size.sm,
-  background: 'transparent',
-});
-
 export const detailHeadWrap = style({
-  display: 'flex',
-  flexWrap: 'wrap',
-  flexDirection: 'row',
+  display: 'grid',
   gap: 12,
+  gridTemplateColumns: 'auto 1fr',
+
   '@media': {
     'screen and (max-width:768px)': {
+      display: 'flex',
       flexDirection: 'column',
     },
   },
 });
-export const detailInfo = style({
-  flex: 1,
-});
+
 export const thumbnailWrap = style({
   overflow: 'hidden',
   display: 'flex',
@@ -83,6 +51,7 @@ export const thumbnailWrap = style({
     },
   },
 });
+
 export const thumbnailImg = style({
   display: 'inline-flex',
   '@media': {
@@ -92,9 +61,52 @@ export const thumbnailImg = style({
   },
 });
 
+export const detailInfo = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 5,
+});
+
+export const detailInfoTitle = style({
+  margin: 0,
+  fontSize: vars.font.size.xxl,
+});
+
+export const detailInfoSummary = style({
+  margin: '10px 0 0',
+});
+
+export const detailInfoTag = style({
+  color: vars.color.mutedText,
+  fontSize: vars.font.size.sm,
+});
+
+export const tags = style({
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'center',
+  gap: vars.space.xs,
+  fontSize: vars.font.size.xs,
+});
+
+export const tag = style({
+  padding: `${vars.space.xs} ${vars.space.sm}`,
+  borderRadius: vars.radius.full,
+  border: `1px solid ${vars.color.border}`,
+  fontSize: vars.font.size.sm,
+  background: 'transparent',
+});
+
 export const contentWrap = style({
+  display: 'grid',
+  gap: 12,
   marginTop: vars.space.lg,
+  padding: 20,
+  width: '100%',
   maxWidth: 920,
+  borderRadius: 20,
+  background: vars.color.surface,
+  border: `1px solid ${vars.color.border}`,
 });
 
 export const contentCard = style({
@@ -111,13 +123,22 @@ export const contentError = style({
 });
 
 export const navRow = style({
-  display: 'flex',
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
   gap: vars.space.md,
-  marginTop: vars.space.md,
-  flexWrap: 'wrap',
-  alignItems: 'center',
+  marginTop: vars.space.xxl,
+  '@media': {
+    'screen and (max-width:768px)': {
+      display: 'flex',
+      justifyContent: 'space-around',
+    },
+  },
 });
 
-export const dim = style({
-  opacity: 0.5,
+export const pageNavButton = style({
+  color: '#333',
+});
+
+export const pageNavText = style({
+  color: '#333',
 });

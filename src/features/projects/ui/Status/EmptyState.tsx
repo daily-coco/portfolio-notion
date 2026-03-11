@@ -16,7 +16,7 @@ export default function EmptyState({
 }: Props) {
   return (
     <div className={s.wrap}>
-      <div className={s.title}>{title}</div>
+      <strong className={s.title}>{title}</strong>
       <div className={s.desc}>{message}</div>
 
       {actionLabel && onAction ? (

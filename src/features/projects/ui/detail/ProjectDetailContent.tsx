@@ -1,4 +1,3 @@
-import Card from '../../../../shared/ui/Card/Card';
 import ContentSkeleton from '../ContentSkeleton';
 import ErrorState from '../Status/ErrorState';
 import ProjectMarkdown from './ProjectMarkdown';
@@ -20,22 +19,18 @@ export default function ProjectDetailContent({
   return (
     <>
       <div className={s.contentWrap}>
-        <Card padding='md'>
-          <div className={s.contentCard}>
-            {isLoading ? (
-              <ContentSkeleton />
-            ) : isError ? (
-              <div style={{ display: 'grid', gap: 10 }}>
-                <ErrorState
-                  title='본문을 불러오지 못했어요'
-                  onRetry={() => onRetry?.()}
-                />
-              </div>
-            ) : (
-              <ProjectMarkdown markdown={markdown ?? ''} />
-            )}
-          </div>
-        </Card>
+        <div className={s.contentCard}>
+          {isLoading ? (
+            <ContentSkeleton />
+          ) : isError ? (
+            <ErrorState
+              title='본문을 불러오지 못했어요'
+              onRetry={() => onRetry?.()}
+            />
+          ) : (
+            <ProjectMarkdown markdown={markdown ?? ''} />
+          )}
+        </div>
       </div>
     </>
   );

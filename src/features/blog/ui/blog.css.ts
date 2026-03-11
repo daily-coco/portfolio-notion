@@ -95,6 +95,7 @@ export const postBadgeWrapFeatured = style({
 });
 
 export const postContentFeatured = style({
+  padding: '10px',
   '@media': {
     'screen and (max-width: 768px)': {
       position: 'absolute',
@@ -107,6 +108,7 @@ export const postContentFeatured = style({
 export const postLink = style({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'flex-end',
   position: 'relative',
   padding: '10px',
   height: '100%',

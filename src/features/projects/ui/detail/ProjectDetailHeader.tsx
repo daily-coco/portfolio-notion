@@ -17,19 +17,21 @@ export default function ProjectDetailHeader({ project }: Props) {
             src={project.thumbnailUrl}
             alt={`${project.title} 대표 썸네일`}
             className={s.thumbnailImg}
+            loading='lazy'
+            decoding='async'
           />
         </figure>
       ) : null}
       <div className={s.detailInfo}>
-        <h2 className={s.title}>{project.title}</h2>
+        <h2 className={s.detailInfoTitle}>{project.title}</h2>
         {project.projectName ? (
-          <h3 className={s.summary}>
+          <h3 className={s.detailInfoSummary}>
             <span className={a11y.srOnly}>프로젝트명:</span>
             {project.projectName}
           </h3>
         ) : null}
 
-        <time className={s.meta}>
+        <time className={s.detailInfoTag}>
           <span className={a11y.srOnly}>작업 기간 :</span>
           {project.startDate ?? '—'}{' '}
           {project.endDate ? `~ ${project.endDate}` : ''}

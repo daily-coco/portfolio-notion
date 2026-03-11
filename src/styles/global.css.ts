@@ -14,7 +14,7 @@ globalStyle('html', {
   fontFamily:
     '"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
   color: '#111',
-  fontSize: vars.font.size.md,
+  fontSize: vars.font.size.lg,
   lineHeight: 1.5,
   scrollBehavior: 'smooth',
   WebkitTextSizeAdjust: '100%',
