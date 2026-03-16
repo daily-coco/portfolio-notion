@@ -16,9 +16,8 @@ export default function HeroSection({ id, className }: Props) {
           <p className={s.eyebrow}>WEB PUBLISHER · REACT FRONTEND</p>
 
           <h1 id='hero-title' className={s.title}>
-            퍼블리싱 실무 경험을 바탕으로
-            <br className={s.titleBreak} />
-            프론트엔드로 확장하고 있습니다
+            <span className={s.titleText}>퍼블리싱 실무 경험을 바탕으로</span>
+            <span className={s.titleText}>프론트엔드로 확장하고 있습니다</span>
           </h1>
 
           <p className={s.description}>

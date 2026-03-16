@@ -11,6 +11,7 @@ globalStyle('*, *::before, *::after', {
 globalStyle('html', {
   margin: 0,
   padding: 0,
+  minWidth: 320,
   fontFamily:
     '"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
   color: '#111',

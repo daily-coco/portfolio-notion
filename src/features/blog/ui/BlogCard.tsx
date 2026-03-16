@@ -46,7 +46,11 @@ export default function BlogCardItem({
         <div
           className={`${s.postContent} ${isFirst ? s.postContentFeatured : ''}`}
         >
-          <strong className={s.postTitle}>{title}</strong>
+          <strong
+            className={`${s.postTitle} ${isFirst ? s.postTitleFeatured : ''}`}
+          >
+            {title}
+          </strong>
           <time className={s.postDate}>{date}</time>
         </div>
         <div className={s.postSummary}>

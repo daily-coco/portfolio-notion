@@ -76,8 +76,20 @@ export const postItem = style({
     },
 
     '&:hover': {
-      transform: 'translateY(-4px)',
-      boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
+      '@media': {
+        'screen and (min-width:769px)': {
+          transform: 'translateY(-4px)',
+          boxShadow: '0 12px 30px rgba(0,0,0,0.08)',
+        },
+      },
+    },
+  },
+});
+
+export const postTitleFeatured = style({
+  '@media': {
+    'screen and (max-width:768px)': {
+      color: '#fff',
     },
   },
 });
@@ -101,6 +113,7 @@ export const postContentFeatured = style({
       position: 'absolute',
       top: 50,
       left: 10,
+      zIndex: 2,
     },
   },
 });
@@ -110,7 +123,7 @@ export const postLink = style({
   flexDirection: 'column',
   justifyContent: 'flex-end',
   position: 'relative',
-  padding: '10px',
+  padding: '40px 10px 10px',
   height: '100%',
   color: '#111',
 
@@ -137,11 +150,27 @@ export const postLink = style({
 });
 
 export const postThumbnailWrap = style({
+  overflow: 'hidden',
   position: 'relative',
   width: '100%',
   aspectRatio: '16 / 10',
-  overflow: 'hidden',
   background: '#f3f4f6',
+  selectors: {
+    '&::before': {
+      '@media': {
+        'screen and (max-width:768px)': {
+          content: '',
+          zIndex: 1,
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: `rgba(0,0,0,.85)`,
+        },
+      },
+    },
+  },
 });
 
 export const postThumbnail = style({
@@ -149,6 +178,7 @@ export const postThumbnail = style({
   height: '100%',
   objectFit: 'cover',
   display: 'block',
+  position: 'relative',
 });
 
 export const postThumbnailFallback = style({
@@ -222,16 +252,28 @@ export const categoryBadge = style({
 
 export const postTitle = style({
   margin: 0,
-  fontSize: '20px',
+  fontSize: '18px',
   lineHeight: 1.45,
   fontWeight: 700,
   color: '#111',
   wordBreak: 'keep-all',
+  '@media': {
+    'screen and (max-width:768px)': {
+      margin: '5px 0 0',
+      fontSize: '16px',
+    },
+  },
 });
 
 export const postContent = style({
   display: 'flex',
   flexDirection: 'column',
+
+  '@media': {
+    'screen and (max-width:768px)': {
+      gap: 4,
+    },
+  },
 });
 
 export const postSummary = style({

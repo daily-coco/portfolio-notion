@@ -32,6 +32,11 @@ export const loadingWrap = style({
   maxWidth: '1200px',
   margin: '0 auto',
   padding: '24px 0',
+  '@media': {
+    'screen and (max-width:768px)': {
+      padding: '25px',
+    },
+  },
 });
 
 export const stateWrap = style({

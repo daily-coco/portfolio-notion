@@ -55,8 +55,14 @@ export const title = style({
   },
 });
 
-export const titleBreak = style({
-  margin: '0 0 0 5px',
+export const titleText = style({
+  display: 'block',
+  margin: '0 5px 0 0',
+  '@media': {
+    'screen and (max-width: 640px)': {
+      display: 'inline',
+    },
+  },
 });
 
 export const description = style({
