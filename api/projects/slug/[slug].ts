@@ -1,8 +1,7 @@
-// api/projects/slug/[slug].ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { Client } from '@notionhq/client';
 import { NotionToMarkdown } from 'notion-to-md';
-import { setCdnCache } from '../../_lib/cache';
+import { setCdnCache } from '../../../lib/cache';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN!;
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!;

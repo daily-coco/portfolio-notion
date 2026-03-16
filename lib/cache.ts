@@ -1,4 +1,3 @@
-// api/_lib/cache.ts
 import type { VercelResponse } from '@vercel/node';
 
 export function setCdnCache(
