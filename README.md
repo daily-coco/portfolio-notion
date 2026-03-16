@@ -1,27 +1,11 @@
-## 로컬 실행 방법
+# 포트폴리오 - Notion API 활용
 
-### 준비물
+기존에 사용했던 Notion 포트폴리오의 데이터 활용과 React에서 API 연결 연습을 위해 진행한 프로젝트 겸 첫 FE 환경 포트폴리오입니다.
 
-- Node.js (LTS 권장)
-- Vercel CLI
+## 배포 링크
 
-### 환경변수 설정
+https://portfolio-notion-gjfvqpj1t-daily-cocos-projects.vercel.app/
 
-프로젝트 루트에 `.env.local` 파일을 만들고 아래 값을 설정해 주세요.  
-`.env.local` 파일은 **GitHub에 커밋하면 안 됩니다.**
+## 🛠 기술
 
-```bash
-NOTION_TOKEN=your_notion_token
-NOTION_DATABASE_ID=your_notion_database_id
-```
-
-### 로컬 실행
-
-이 프로젝트는 /api 아래의 Vercel 서버리스 함수를 사용하므로, 아래 명령어로 실행해 주세요.
-
-```
-vercel dev
-```
-
-접속 주소
-http://localhost:3000
+React / TypeScript / Vite / Notion API
