@@ -1,7 +1,10 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { setCdnCache } from './_lib/cache';
-import type { Project } from '../src/shared/types/project';
-import type { NotionDatabaseQueryResponse, NotionPage } from './_types/notion';
+import { setCdnCache } from './_lib/cache.ts';
+import type { Project } from '../src/shared/types/project.ts';
+import type {
+  NotionDatabaseQueryResponse,
+  NotionPage,
+} from './_types/notion.ts';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN!;
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!;

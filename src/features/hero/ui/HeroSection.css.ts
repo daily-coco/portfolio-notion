@@ -11,6 +11,8 @@ export const inner = style({
   gridTemplateColumns: 'minmax(0, 1.4fr) minmax(280px, 0.8fr)',
   gap: vars.space.lg,
   alignItems: 'stretch',
+  margin: '0 auto',
+  maxWidth: '1200px',
 
   '@media': {
     'screen and (max-width: 960px)': {

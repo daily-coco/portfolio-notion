@@ -62,7 +62,7 @@ export const bodyBlock = style({
 
 export const grid = style({
   display: 'grid',
-  gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  gridTemplateColumns: 'repeat(2, 1fr)',
   gap: 16,
   '@media': {
     'screen and (max-width: 768px)': {
@@ -73,7 +73,8 @@ export const grid = style({
 
 export const card = style({
   display: 'grid',
+  justifyItems: 'center',
   gap: 10,
-  padding: 20,
+  padding: '20px 0',
   borderRadius: 16,
 });

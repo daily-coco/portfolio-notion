@@ -15,6 +15,11 @@ export const detailPageWrap = style({
 export const detailPageInner = style({
   maxWidth: 920,
   width: '100%',
+  '@media': {
+    'screen and (min-width:1024px)': {
+      minWidth: 920,
+    },
+  },
 });
 
 export const detailPageTopNav = style({
@@ -123,9 +128,9 @@ export const contentError = style({
 });
 
 export const navRow = style({
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
+  display: 'flex',
   gap: vars.space.md,
+  justifyContent: 'center',
   marginTop: vars.space.xxl,
   '@media': {
     'screen and (max-width:768px)': {

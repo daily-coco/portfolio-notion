@@ -38,14 +38,10 @@ export default function ContentSkeleton() {
       <section className={s.grid}>
         <div className={s.card}>
           <Skeleton height={20} width='55%' />
-          <Skeleton height={14} width='90%' />
-          <Skeleton height={14} width='84%' />
         </div>
 
         <div className={s.card}>
           <Skeleton height={20} width='52%' />
-          <Skeleton height={14} width='88%' />
-          <Skeleton height={14} width='82%' />
         </div>
       </section>
     </div>

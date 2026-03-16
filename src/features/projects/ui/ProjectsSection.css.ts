@@ -4,6 +4,8 @@ import { vars } from '../../../styles/tokens.css';
 export const section = style({
   display: 'grid',
   gap: vars.space.lg,
+  margin: '0 auto',
+  maxWidth: '1200px',
 });
 
 export const header = style({
