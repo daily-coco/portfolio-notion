@@ -21,7 +21,7 @@ export const blogPostData: BlogPost[] = [
   },
   {
     title: '필터(서버/클라이언트 기준) / 프로젝트 폴더 구조 설계(관심사)',
-    url: 'https://soi-story.tistory.com/487',
+    url: 'https://soi-story.tistory.com/48',
     date: '2026-02-10',
     category: '포트폴리오_기록',
     recently: false,
@@ -29,7 +29,7 @@ export const blogPostData: BlogPost[] = [
   },
   {
     title: '프로젝트 폴더 구조 - DDD / pages | features',
-    url: 'https://soi-story.tistory.com/43',
+    url: 'https://soi-story.tistory.com/46',
     date: '2026-02-06',
     category: '포트폴리오_기록',
     recently: false,
