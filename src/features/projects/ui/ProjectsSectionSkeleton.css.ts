@@ -27,9 +27,11 @@ export const skTagsRow = style({
 });
 
 export const loadingWrap = style({
-  padding: 24,
   display: 'grid',
   gap: 16,
+  maxWidth: '1200px',
+  margin: '0 auto',
+  padding: '24px 0',
 });
 
 export const stateWrap = style({
