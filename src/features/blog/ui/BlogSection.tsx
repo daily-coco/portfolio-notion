@@ -17,7 +17,12 @@ export default function BlogSection({ id, className }: Props) {
             <h2 className={s.title}>기록하고 정리한 글</h2>
           </div>
 
-          <a href='' target='_blank' rel='noreferrer' className={s.moreLink}>
+          <a
+            href='https://soi-story.tistory.com'
+            target='_blank'
+            rel='noreferrer'
+            className={s.moreLink}
+          >
             블로그 글 더보기
           </a>
         </div>
