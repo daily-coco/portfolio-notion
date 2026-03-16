@@ -4,7 +4,7 @@ import type { Project } from '../src/shared/types/project.js';
 import type {
   NotionDatabaseQueryResponse,
   NotionPage,
-} from './_types/notion.ts';
+} from './_types/notion.js';
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN!;
 const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID!;
