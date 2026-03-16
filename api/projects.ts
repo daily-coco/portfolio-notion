@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { setCdnCache } from './_lib/cache.ts';
-import type { Project } from '../src/shared/types/project.ts';
+import { setCdnCache } from './_lib/cache.js';
+import type { Project } from '../src/shared/types/project.js';
 import type {
   NotionDatabaseQueryResponse,
   NotionPage,
