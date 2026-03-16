@@ -4,7 +4,7 @@ type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 
 import * as m from '../../styles/markdownStyles.css';
 
-export default function LazyImg({ src, alt = '', ...rest }: Props) {
+export default function LazyImg({ src, alt = '', ...props }: Props) {
   const ref = useRef<HTMLImageElement | null>(null);
   const [ready, setReady] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -41,6 +41,7 @@ export default function LazyImg({ src, alt = '', ...rest }: Props) {
         (e.currentTarget as HTMLImageElement).style.display = 'none';
       }}
       className={m.img}
+      {...props}
     />
   );
 }
