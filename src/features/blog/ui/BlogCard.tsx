@@ -47,7 +47,8 @@ export default function BlogCardItem({
           className={`${s.postContent} ${isFirst ? s.postContentFeatured : ''}`}
         >
           <strong
-            className={`${s.postTitle} ${isFirst ? s.postTitleFeatured : ''}`}
+            // className={`${s.postTitle} ${isFirst ? s.postTitleFeatured : ''}`}
+            className={`${s.postTitle}`}
           >
             {title}
           </strong>

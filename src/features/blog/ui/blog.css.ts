@@ -94,7 +94,7 @@ export const postItem = style({
 //   },
 // });
 
-export const postItemFeatured = style({});
+// export const postItemFeatured = style({});
 
 export const postBadgeWrapFeatured = style({
   '@media': {
