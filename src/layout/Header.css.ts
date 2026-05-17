@@ -7,7 +7,7 @@ export const header = style({
   zIndex: 100,
   width: '100%',
   backdropFilter: 'blur(12px)',
-  background: 'rgba(255, 255, 255, 0.72)',
+  background: 'rgba(253, 249, 247, 0.8)',
   borderBottom: `1px solid ${vars.color.border}`,
 });
 
@@ -29,9 +29,8 @@ export const logoLink = style({
 });
 
 export const logoImage = style({
-  width: '50px',
-  height: '50px',
   display: 'block',
+  width: '45px',
 });
 
 export const nav = style({});
@@ -40,10 +39,15 @@ export const navList = style({
   display: 'flex',
   alignItems: 'center',
   gap: vars.space.sm,
-  listStyle: 'none',
   margin: 0,
   padding: 0,
+  listStyle: 'none',
 });
+
+const activeStyles = {
+  background: '#E4d4c6',
+  color: '#92704f',
+};
 
 export const navLink = style({
   display: 'inline-flex',
@@ -59,10 +63,7 @@ export const navLink = style({
   transition:
     'background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease',
   selectors: {
-    '&:hover': {
-      background: vars.color.surface,
-      color: vars.color.text,
-    },
+    '&:hover': { ...activeStyles },
     '&:focus-visible': {
       outline: 'none',
       boxShadow: `0 0 0 2px ${vars.color.accent}`,
@@ -70,7 +71,4 @@ export const navLink = style({
   },
 });
 
-export const navLinkActive = style({
-  background: vars.color.surface,
-  color: vars.color.text,
-});
+export const navLinkActive = style(activeStyles);

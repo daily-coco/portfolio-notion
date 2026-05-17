@@ -1,16 +1,18 @@
 import { Link, useLocation } from 'react-router-dom';
+
 import { useActiveSection } from '../hooks/useActiveSection';
 import { HEADER_MENU } from './headerMenu';
-
 import * as s from './Header.css';
-import logo from '../assets/images/logo/logo.svg';
+import logo from '../assets/images/logo/logo.png';
+
+const SECTION_IDS = ['hero', 'projects', 'blog'] as const;
 
 export default function Header() {
   const location = useLocation();
+
   const isHome = location.pathname === '/';
   const isProjectDetail = location.pathname.startsWith('/projects/');
-
-  const activeSection = useActiveSection(['hero', 'projects', 'blog']);
+  const activeSection = useActiveSection(SECTION_IDS);
 
   const getIsActive = (item: (typeof HEADER_MENU)[number]) => {
     if (isProjectDetail) {
@@ -21,10 +23,6 @@ export default function Header() {
       return false;
     }
 
-    if (!location.hash) {
-      return item.id === 'hero';
-    }
-
     return activeSection === item.id;
   };
 
@@ -32,9 +30,11 @@ export default function Header() {
     <header className={s.header}>
       <div className={s.inner}>
         <Link to='/#hero' className={s.logoLink} aria-label='홈으로 이동'>
-          <h1>
-            <img src={logo} alt='ui.soi Logo' className={s.logoImage} />
-          </h1>
+          <img
+            src={logo}
+            alt='UI 개발자 이소원 포트폴리오 로고'
+            className={s.logoImage}
+          />
         </Link>
 
         <nav className={s.nav} aria-label='주요 메뉴'>

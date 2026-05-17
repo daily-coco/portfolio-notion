@@ -3,7 +3,7 @@ import { vars } from '../../../styles/tokens.css';
 
 export const card = style({
   padding: vars.space.md,
-  background: vars.color.surface,
+  // background: vars.color.surface,
   border: `1px solid ${vars.color.border}`,
   borderRadius: vars.radius.lg,
   boxShadow: vars.shadow.sm,

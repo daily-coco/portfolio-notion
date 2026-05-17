@@ -86,19 +86,19 @@ export const postItem = style({
   },
 });
 
-export const postTitleFeatured = style({
-  '@media': {
-    'screen and (max-width:768px)': {
-      color: '#fff',
-    },
-  },
-});
+// export const postTitleFeatured = style({
+//   '@media': {
+//     'screen and (max-width:768px)': {
+//       color: '#fff',
+//     },
+//   },
+// });
 
 export const postItemFeatured = style({});
 
 export const postBadgeWrapFeatured = style({
   '@media': {
-    'screen and (max-width: 768px)': {
+    'screen and (max-width: 767px)': {
       position: 'absolute',
       top: 10,
       left: 10,
@@ -108,14 +108,14 @@ export const postBadgeWrapFeatured = style({
 
 export const postContentFeatured = style({
   padding: '10px',
-  '@media': {
-    'screen and (max-width: 768px)': {
-      position: 'absolute',
-      top: 50,
-      left: 10,
-      zIndex: 2,
-    },
-  },
+  // '@media': {
+  //   'screen and (max-width: 767px)': {
+  //     position: 'absolute',
+  //     top: 50,
+  //     left: 10,
+  //     zIndex: 2,
+  //   },
+  // },
 });
 
 export const postLink = style({
@@ -138,9 +138,9 @@ export const postLink = style({
       opacity: 0.4,
       width: '100%',
       height: '100%',
-      backgroundColor: '#2A7B9B',
+      backgroundColor: '#E9E1D8',
       background:
-        'linear-gradient(90deg, rgb(255, 255, 255) 0%, rgba(87, 199, 133, 1) 40%, rgba(237, 221, 83, 1) 100%)',
+        'linear-gradient(130deg,rgba(255, 255, 255, 0) 26%, rgba(250, 214, 177, 1) 49%, rgba(255, 240, 219, 1) 72%, rgba(250, 214, 177, 1) 87%, rgba(233, 225, 216, 1) 100%)',
     },
     '&:hover::after': {
       transform: 'translateX(0)',
@@ -162,11 +162,12 @@ export const postThumbnailWrap = style({
           content: '',
           zIndex: 1,
           position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: `rgba(0,0,0,.85)`,
+          bottom: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '90%',
+          height: '1px',
+          background: `#D2CECA`,
         },
       },
     },
@@ -217,13 +218,13 @@ export const postBadgeWrap = style({
   display: 'flex',
   gap: 4,
   flexDirection: 'row',
-  '@media': {
-    'screen and (max-width:768px)': {
-      position: 'relative',
-      top: 0,
-      left: 0,
-    },
-  },
+  // '@media': {
+  //   'screen and (max-width:768px)': {
+  //     position: 'relative',
+  //     top: 0,
+  //     left: 0,
+  //   },
+  // },
 });
 
 export const recentBadge = style({

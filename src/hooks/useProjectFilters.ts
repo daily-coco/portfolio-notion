@@ -23,7 +23,8 @@ export function useProjectFilters(projects: Project[]) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [q, setQ] = useState(() => searchParams.get('q') ?? '');
+  // const [q, setQ] = useState(() => searchParams.get('q') ?? '');
+  const [q, setQ] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>(() =>
     parseTags(searchParams.get('tags'))
   );
@@ -75,8 +76,8 @@ export function useProjectFilters(projects: Project[]) {
 
     const next = new URLSearchParams();
 
-    const nextQ = debouncedQ.trim();
-    if (nextQ) next.set('q', nextQ);
+    // const nextQ = debouncedQ.trim();
+    // if (nextQ) next.set('q', nextQ);
 
     if (sortKey !== 'date_desc') next.set('sort', sortKey);
 

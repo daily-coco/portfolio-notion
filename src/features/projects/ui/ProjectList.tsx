@@ -15,46 +15,50 @@ export default function ProjectList({ projects }: Props) {
   return (
     <>
       <ul className={s.grid}>
-        {projects.map((p) => (
-          <li key={p.slug}>
-            <Link className={s.link} to={`/projects/${p.slug}`}>
-              <Card interactive className={s.cardInner}>
-                {p.thumbnailUrl ? (
-                  <figure className={s.figure}>
-                    <img
-                      src={p.thumbnailUrl}
-                      alt={`${p.title} 썸네일`}
-                      className={s.thumb}
-                    />
-                  </figure>
-                ) : null}
-                <strong className={s.title}>{p.title}</strong>
-                <span className={s.date}>
-                  {p.startDate ?? '—'} {p.endDate ? `~ ${p.endDate}` : ''}
-                </span>
+        {projects.map((p) => {
+          const visibleTags = p.tags.slice(0, CARD_TAG_VIEW);
+          const hiddenTagCount = p.tags.length - CARD_TAG_VIEW;
+          return (
+            <li key={p.slug}>
+              <Link className={s.link} to={`/projects/${p.slug}`}>
+                <Card interactive className={s.cardInner}>
+                  {p.thumbnailUrl ? (
+                    <figure className={s.figure}>
+                      <img
+                        src={p.thumbnailUrl}
+                        alt={`${p.title} 썸네일`}
+                        className={s.thumb}
+                      />
+                    </figure>
+                  ) : null}
+                  <strong className={s.title}>{p.title}</strong>
+                  <span className={s.date}>
+                    {p.startDate ?? '—'} {p.endDate ? `~ ${p.endDate}` : ''}
+                  </span>
 
-                {p.tags.length > 0 ? (
-                  <div className={s.cardTagsWrap}>
-                    <ul className={s.cardTagsList}>
-                      {p.tags.slice(0, CARD_TAG_VIEW).map((t) => (
-                        <li key={t} className={s.cardTagsTag}>
-                          {t}
-                        </li>
-                      ))}
-                    </ul>
-                    {p.tags.length > 4 ? (
-                      <sup className={s.cardTagsMore}>+{p.tags.length - 4}</sup>
-                    ) : null}
-                  </div>
-                ) : null}
+                  {p.tags.length > 0 ? (
+                    <div className={s.cardTagsWrap}>
+                      <ul className={s.cardTagsList}>
+                        {visibleTags.map((t) => (
+                          <li key={t} className={s.cardTagsTag}>
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                      {hiddenTagCount > 0 ? (
+                        <sup className={s.cardTagsMore}>+{hiddenTagCount}</sup>
+                      ) : null}
+                    </div>
+                  ) : null}
 
-                {/* {p.projectName ? (
-                  <div className={s.summary}>{p.projectName}</div>
-                ) : null} */}
-              </Card>
-            </Link>
-          </li>
-        ))}
+                  {p.projectName ? (
+                    <div className={s.summary}>{p.projectName}</div>
+                  ) : null}
+                </Card>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </>
   );

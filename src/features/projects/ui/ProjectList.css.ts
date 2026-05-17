@@ -81,12 +81,12 @@ export const cardTagsTag = style({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
+  paddingInline: '0.75rem',
+  fontSize: '0.75rem',
+  borderRadius: '1.0rem',
+  color: '#734e2a',
+  background: '#E4d4c6',
   whiteSpace: 'nowrap',
-  padding: '6px 12px',
-  fontSize: 11,
-  borderRadius: '999px',
-  border: '1px solid #ddd',
-  background: '#fff',
 });
 export const cardTagsMore = style({
   opacity: 0.6,

@@ -13,8 +13,11 @@ export default function BlogSection({ id, className }: Props) {
       <div className={s.inner}>
         <div className={s.header}>
           <div>
-            <span className={s.eybrow}>Blog</span>
-            <h2 className={s.title}>기록하고 정리한 글</h2>
+            <h2 className={s.title}>
+              <span className={s.eybrow}>Blog/Tistory</span>
+              블로그 기록
+            </h2>
+            <p>기록을 통해 더욱 단단히 성장하고자 합니다.</p>
           </div>
 
           <a

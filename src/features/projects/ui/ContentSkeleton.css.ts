@@ -15,7 +15,7 @@ export const header = style({
   alignItems: 'start',
   width: '100%',
   '@media': {
-    'screen and (max-width: 768px)': {
+    'screen and (max-width: 767px)': {
       gridTemplateColumns: '1fr',
     },
   },
@@ -65,7 +65,7 @@ export const grid = style({
   gridTemplateColumns: 'repeat(2, 1fr)',
   gap: 16,
   '@media': {
-    'screen and (max-width: 768px)': {
+    'screen and (max-width: 767px)': {
       gridTemplateColumns: '1fr',
     },
   },

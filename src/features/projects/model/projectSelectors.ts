@@ -12,6 +12,20 @@ export function getAllTags(projects: Project[]) {
   return Array.from(set).sort((a, b) => a.localeCompare(b));
 }
 
+function createProjectSearchText(project: Project) {
+  return [
+    project.title,
+    project.projectName,
+    project.slug,
+    project.startDate,
+    project.endDate,
+    ...project.tags,
+  ]
+    .filter((value): value is string => Boolean(value))
+    .join('   ')
+    .toLowerCase();
+}
+
 export function filterProjects(
   projects: Project[],
   params: { q: string; selectedTags: string[] }
@@ -20,10 +34,9 @@ export function filterProjects(
   const { selectedTags } = params;
 
   return projects.filter((p) => {
-    const matchesKeyword =
-      keyword.length === 0 ||
-      p.title.toLowerCase().includes(keyword) ||
-      p.tags.some((t) => t.toLowerCase().includes(keyword));
+    const searchText = createProjectSearchText(p);
+
+    const matchesKeyword = keyword.length === 0 || searchText.includes(keyword);
 
     const matchesTags =
       selectedTags.length === 0 ||
@@ -32,7 +45,6 @@ export function filterProjects(
     return matchesKeyword && matchesTags;
   });
 }
-
 export function sortProjects(projects: Project[], sortKey: SortKey) {
   const list = [...projects];
 

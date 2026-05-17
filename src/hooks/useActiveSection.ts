@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function useActiveSection(sectionIds: string[]) {
+export function useActiveSection(sectionIds: readonly string[]) {
   const [activeId, setActiveId] = useState(sectionIds[0] ?? '');
 
   useEffect(() => {
