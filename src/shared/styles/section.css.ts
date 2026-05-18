@@ -9,7 +9,7 @@ export const sectionBase = style({
   padding: '50px 25px',
   '@media': {
     'screen and (max-width:767px)': {
-      padding: '50px 0',
+      padding: '50px 1rem',
     },
   },
 });
