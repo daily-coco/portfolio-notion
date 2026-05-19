@@ -1,43 +1,22 @@
 import {
-  createElement,
   type HTMLAttributes,
   type ReactNode,
+  useCallback,
+  useLayoutEffect,
   useRef,
 } from 'react';
 
-import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '../../gsap';
 
 type RevealTag = 'section' | 'article' | 'div' | 'main' | 'header' | 'footer';
 
-type ScrollRevalProps = HTMLAttributes<HTMLElement> & {
+type ScrollRevealProps = HTMLAttributes<HTMLElement> & {
   as?: RevealTag;
   children: ReactNode;
-
-  /**
-   * ScrollTrigger 시작 위치
-   */
   start?: string;
-
-  /** once
-   *  - true : 한 번 등장 후 유지
-   *  - false : 위로 올라가면 reverse / 위에서 다시 내려올 때 다시 재생
-   */
   once?: boolean;
-
-  /*
-    애니메이션 시간
-  */
   duration?: number;
-
-  /**
-   * 개발 중 ScrollTrigger marker 확인용
-   */
   markers?: boolean;
-
-  /**
-   * 비동기 데이터 로드 후 다시 reveal 대상 계산 필요할 때 사용
-   */
   refreshKey?: string | number | boolean;
 };
 
@@ -77,97 +56,132 @@ export default function ScrollReveal({
   markers = false,
   refreshKey,
   ...rest
-}: ScrollRevalProps) {
+}: ScrollRevealProps) {
   const rootRef = useRef<HTMLElement | null>(null);
 
-  useGSAP(
-    () => {
-      const root = rootRef.current;
+  const setRootRef = useCallback((node: HTMLElement | null) => {
+    rootRef.current = node;
+  }, []);
 
-      if (!root) return;
+  useLayoutEffect(() => {
+    const root = rootRef.current;
 
-      const targets = gsap.utils.toArray<HTMLElement>('[data-reveal]', root);
+    if (!root) return;
 
-      if (targets.length === 0) {
-        ScrollTrigger.refresh();
-        return;
-      }
+    const targets = gsap.utils.toArray<HTMLElement>('[data-reveal]', root);
 
-      const mm = gsap.matchMedia();
+    if (targets.length === 0) {
+      ScrollTrigger.refresh();
+      return;
+    }
 
-      mm.add(
-        {
-          reduceMotion: '(prefers-reduced-motion: reduce)',
-          motionOK: '(prefers-reduced-motion: no-preference)',
-        },
-        (context) => {
-          const reduceMotion = Boolean(context.conditions?.reduceMotion);
-          if (reduceMotion) {
-            gsap.set(targets, {
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        reduceMotion: '(prefers-reduced-motion: reduce)',
+        motionOK: '(prefers-reduced-motion: no-preference)',
+      },
+      (context) => {
+        const reduceMotion = Boolean(context.conditions?.reduceMotion);
+
+        if (reduceMotion) {
+          gsap.set(targets, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+          });
+
+          return;
+        }
+
+        targets.forEach((target) => {
+          const direction = target.dataset.reveal;
+          const delay = getRevealDelay(target.dataset.revealDelay);
+          const fromVars = getRevealFromVars(direction);
+
+          gsap.fromTo(
+            target,
+            {
+              autoAlpha: 0,
+              ...fromVars,
+            },
+            {
               autoAlpha: 1,
               x: 0,
               y: 0,
               scale: 1,
-            });
-
-            return;
-          }
-          targets.forEach((target) => {
-            const direction = target.dataset.reveal;
-            const delay = getRevealDelay(target.dataset.revealDelay);
-            const fromVars = getRevealFromVars(direction);
-
-            gsap.fromTo(
-              target,
-              {
-                autoAlpha: 0,
-                ...fromVars,
+              duration,
+              delay,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: target,
+                start,
+                markers,
+                toggleActions: once
+                  ? 'play none none none'
+                  : 'play none none reverse',
               },
-              {
-                autoAlpha: 1,
-                x: 0,
-                y: 0,
-                scale: 1,
-                duration,
-                delay,
-                ease: 'power3.out',
-                scrollTrigger: {
-                  trigger: target,
-                  start,
-                  markers,
-                  toggleActions: once
-                    ? 'play none none none'
-                    : 'play none none reverse',
-                },
-              }
-            );
-          });
-        }
-      );
+            }
+          );
+        });
+      }
+    );
 
-      const raf = window.requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-      });
+    const raf = window.requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
 
-      return () => {
-        window.cancelAnimationFrame(raf);
-        mm.revert();
-      };
-    },
-    {
-      scope: rootRef,
-      dependencies: [start, once, duration, markers, refreshKey],
-      revertOnUpdate: true,
-    }
-  );
+    return () => {
+      window.cancelAnimationFrame(raf);
+      mm.revert();
+    };
+  }, [start, once, duration, markers, refreshKey]);
 
-  return createElement(
-    as,
-    {
-      ...rest,
-      ref: rootRef,
-      className,
-    },
-    children
+  if (as === 'article') {
+    return (
+      <article {...rest} ref={setRootRef} className={className}>
+        {children}
+      </article>
+    );
+  }
+
+  if (as === 'div') {
+    return (
+      <div {...rest} ref={setRootRef} className={className}>
+        {children}
+      </div>
+    );
+  }
+
+  if (as === 'main') {
+    return (
+      <main {...rest} ref={setRootRef} className={className}>
+        {children}
+      </main>
+    );
+  }
+
+  if (as === 'header') {
+    return (
+      <header {...rest} ref={setRootRef} className={className}>
+        {children}
+      </header>
+    );
+  }
+
+  if (as === 'footer') {
+    return (
+      <footer {...rest} ref={setRootRef} className={className}>
+        {children}
+      </footer>
+    );
+  }
+
+  return (
+    <section {...rest} ref={setRootRef} className={className}>
+      {children}
+    </section>
   );
 }
