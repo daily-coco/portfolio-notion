@@ -29,7 +29,7 @@ export default function TechMarquee() {
     >
       <div className={s.marquee}>
         <div className={s.track}>
-          <ul className={clsx(s.list, s.screenReaderOnly)}>
+          <ul className={s.screenReaderOnly}>
             {logos.map((logo) => (
               <li key={logo.id}>{logo.label}</li>
             ))}
