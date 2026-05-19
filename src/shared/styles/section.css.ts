@@ -14,6 +14,13 @@ export const sectionBase = style({
   },
 });
 
+export const sectionBanner = style({
+  overflow: 'hidden',
+  position: 'relative',
+  scrollMarginTop: '88px',
+  padding: '1rem',
+});
+
 export const sectionInner = style({
   width: '100%',
   maxWidth: '1000px',

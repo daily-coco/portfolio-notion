@@ -75,3 +75,21 @@ export const heroGraphData: HeroGraphType[] = [
     desc: '확장 가능한 구조 설계',
   },
 ];
+export const techMarqueeLogos = [
+  { id: 'logo_html5', label: 'html5' },
+  { id: 'logo_css3', label: 'css3' },
+  { id: 'logo_javascript', label: 'javascript' },
+  { id: 'logo_typescript', label: 'typescript' },
+  { id: 'logo_sass', label: 'sass' },
+  { id: 'logo_gulp', label: 'gulp' },
+  { id: 'logo_react', label: 'react' },
+  { id: 'logo_vanilla_extract', label: 'vanilla-extract' },
+  { id: 'logo_sourcetree', label: 'sourcetree' },
+  { id: 'logo_github', label: 'github' },
+  { id: 'logo_vercel', label: 'vercel' },
+  { id: 'logo_photoshop', label: 'photoshop' },
+  { id: 'logo_zeplin', label: 'zeplin' },
+  { id: 'logo_figma', label: 'figma' },
+  { id: 'logo_notion', label: 'notion' },
+  { id: 'logo_dooray', label: 'dooray' },
+];

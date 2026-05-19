@@ -4,7 +4,7 @@ import * as s from './HeroSection.css';
 import * as common from '../../../shared/styles/section.css';
 import HeroSectionGraph from './HeroSectionGraph';
 
-import ScrollReveal from '../../../shared/animation/ui/ScrollReveal/ScrollReveal';
+import ScrollReveal from '../../../shared/animation/ui/scrollreveal/ScrollReveal';
 
 type Props = {
   id: string;
