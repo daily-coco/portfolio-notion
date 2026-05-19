@@ -10,7 +10,7 @@ import clsx from 'clsx';
 
 import * as s from './ProjectsSection.css';
 import * as common from '../../../shared/styles/section.css';
-import ScrollReveal from '../../../shared/animation/ui/ScrollReveal/ScrollReveal';
+import ScrollReveal from '../../../shared/animation/ui/scrollreveal/ScrollReveal';
 
 type Props = {
   id: string;
