@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react';
 
-import { gsap, ScrollTrigger } from '../../../animation/gsap';
+import { gsap, ScrollTrigger } from '../../gsap';
 
 type RevealTag = 'section' | 'article' | 'div' | 'main' | 'header' | 'footer';
 
