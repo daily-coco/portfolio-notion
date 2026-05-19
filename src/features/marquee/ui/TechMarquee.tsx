@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import ScrollReveal from '../../../shared/animation/ui/scrollreveal/ScrollReveal';
+import ScrollReveal from '../../../shared/animation/ui/scrollreveal/ScrollReveal.tsx';
 import * as common from '../../../shared/styles/section.css';
 import * as s from './TechMarquee.css.ts';
 
