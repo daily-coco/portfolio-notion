@@ -10,6 +10,7 @@ import clsx from 'clsx';
 
 import * as s from './ProjectsSection.css';
 import * as common from '../../../shared/styles/section.css';
+import ScrollReveal from '../../../shared/animation/ui/ScrollReveal/ScrollReveal';
 
 type Props = {
   id: string;
@@ -65,17 +66,23 @@ export default function ProjectsSection({
 
     if (projects.length === 0) {
       return (
-        <EmptyState
-          title='아직 등록된 프로젝트가 없습니다.'
-          message='Notion DB를 확인해 주세요.'
-        />
+        <div data-reveal='up'>
+          <EmptyState
+            title='아직 등록된 프로젝트가 없습니다.'
+            message='Notion DB를 확인해 주세요.'
+          />
+        </div>
       );
     }
 
     return (
-      <>
+      <div
+        className={s.projectsInner}
+        data-reveal='up'
+        data-reveal-delay='0.08'
+      >
         {showHeader ? (
-          <div className={s.header}>
+          <div className={s.header} data-reveal='up'>
             <h2 className={s.title}>{title}</h2>
             <div className={s.meta}>
               조회 : {filtered.length} / 전체 : {projects.length}
@@ -83,7 +90,6 @@ export default function ProjectsSection({
             </div>
           </div>
         ) : null}
-
         <ProjectsToolbar
           q={q}
           onChangeQ={setQ}
@@ -110,13 +116,20 @@ export default function ProjectsSection({
         ) : (
           <ProjectList projects={filtered} />
         )}
-      </>
+      </div>
     );
   };
 
   return (
-    <section id={id} className={clsx(common.sectionBase, s.section, className)}>
+    <ScrollReveal
+      as='section'
+      id={id}
+      className={clsx(common.sectionBase, s.section, className)}
+      start='top 78%'
+      once={true}
+      refreshKey={isLoading ? 'loading' : 'loaded'}
+    >
       {renderContent()}
-    </section>
+    </ScrollReveal>
   );
 }

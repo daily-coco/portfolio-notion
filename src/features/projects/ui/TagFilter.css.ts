@@ -4,6 +4,7 @@ const desktop = 'screen and (min-width: 768px)';
 
 export const tagFilterWrap = style({
   position: 'relative',
+  marginTop: '1rem',
   width: '100%',
   maxWidth: '100%',
   minWidth: 0,
@@ -48,6 +49,7 @@ export const tagFilterList = style({
   margin: 0,
   padding: '0 40px 10px 0',
   listStyle: 'none',
+  boxSizing: 'border-box',
 
   overflowX: 'auto',
   overflowY: 'hidden',
