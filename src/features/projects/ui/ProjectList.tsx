@@ -15,11 +15,15 @@ export default function ProjectList({ projects }: Props) {
   return (
     <>
       <ul className={s.grid}>
-        {projects.map((p) => {
+        {projects.map((p, index) => {
           const visibleTags = p.tags.slice(0, CARD_TAG_VIEW);
           const hiddenTagCount = p.tags.length - CARD_TAG_VIEW;
           return (
-            <li key={p.slug}>
+            <li
+              key={p.slug}
+              data-reveal='up'
+              data-reveal-delay={String((index % 3) * 0.08)}
+            >
               <Link className={s.link} to={`/projects/${p.slug}`}>
                 <Card interactive className={s.cardInner}>
                   {p.thumbnailUrl ? (

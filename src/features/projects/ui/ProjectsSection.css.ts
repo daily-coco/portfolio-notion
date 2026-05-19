@@ -1,6 +1,9 @@
 import { style } from '@vanilla-extract/css';
 import { vars } from '../../../styles/tokens.css';
-
+export const projectsInner = style({
+  overflow: 'hidden',
+  position: 'relative',
+});
 export const section = style({
   display: 'grid',
   gap: vars.space.lg,

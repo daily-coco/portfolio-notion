@@ -16,7 +16,7 @@ export default function BlogCardItem({
   isFirst = false,
 }: Props) {
   return (
-    <li className={s.postItem}>
+    <li className={s.postItem} data-reveal='up' data-reveal-delay='0.12'>
       <a
         href={url}
         title='새창열림'
