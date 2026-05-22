@@ -226,17 +226,16 @@ export const postBadgeWrap = style({
   //   },
   // },
 });
-
 export const recentBadge = style({
   display: 'inline-flex',
   alignItems: 'center',
   height: '28px',
   padding: '0 10px',
   borderRadius: '999px',
-  background: '#111',
   fontSize: '12px',
   fontWeight: 600,
-  color: '#fff',
+  color: '#734e2a',
+  background: '#E4d4c6',
 });
 
 export const categoryBadge = style({
@@ -245,10 +244,10 @@ export const categoryBadge = style({
   height: '28px',
   padding: '0 10px',
   borderRadius: '999px',
-  background: '#111',
   fontSize: '12px',
   fontWeight: 600,
   color: '#fff',
+  background: '#111',
 });
 
 export const postTitle = style({
