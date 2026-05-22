@@ -52,14 +52,12 @@ export default function ProjectDetailPage() {
       <article className={s.detailPageWrap}>
         <div className={s.detailPageInner}>
           <ErrorState
-            message={
-              (error as Error)?.message ?? '알 수 없는 오류가 발생했습니다.'
-            }
+            message={(error as Error)?.message ?? '알 수 없는 오류가 발생했습니다.'}
             onRetry={refetchProjects}
           />
-          <div style={{ marginTop: 12 }}>
+          <div className={s.pageListButton}>
             <Button variant='ghost' onClick={() => navigate('/')}>
-              목록으로
+              홈으로 이동하기
             </Button>
           </div>
         </div>

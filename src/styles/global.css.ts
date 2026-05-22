@@ -12,6 +12,7 @@ globalStyle('html', {
   margin: 0,
   padding: 0,
   minWidth: 320,
+  minHeight: 'calc(100dvh)',
   fontFamily:
     '"Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif',
   color: '#111',
@@ -56,4 +57,12 @@ globalStyle('a', {
 
 globalStyle('em', {
   fontStyle: 'normal',
+});
+
+globalStyle('#root', {
+  display: 'flex',
+  width: '100%',
+  height: '100vh',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
 });

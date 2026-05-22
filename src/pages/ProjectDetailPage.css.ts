@@ -147,3 +147,9 @@ export const pageNavButton = style({
 export const pageNavText = style({
   color: '#333',
 });
+
+export const pageListButton = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
