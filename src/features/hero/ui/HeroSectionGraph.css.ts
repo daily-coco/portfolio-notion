@@ -1,4 +1,4 @@
-import { createVar, keyframes, style } from '@vanilla-extract/css';
+import { createVar, style } from '@vanilla-extract/css';
 
 export const heroGraphContainer = style({
   position: 'relative',
@@ -90,6 +90,8 @@ export const heroGraphItem = style({
   marginLeft: '4.375rem',
   width: '4.5rem', //72px
   textAlign: 'center',
+  willChange: 'transform, opacity',
+
   '@media': {
     'screen and (max-width:960px)': {
       flex: '1 auto',
@@ -115,6 +117,7 @@ export const heroGraphIcon = style({
   aspectRatio: '1',
   border: '2px solid #CFCBC6',
   borderRadius: '100%',
+  willChange: 'transform, box-shadow',
 });
 
 // icon
@@ -233,42 +236,18 @@ export const heroGraphLineBase = style({
 });
 
 const heroGraphLineColor = createVar();
-const heroGraphLineDelay = createVar();
 export const heroGraphLinePublishing = style({
   vars: {
     [heroGraphLineColor]: '#C3AD98',
-    [heroGraphLineDelay]: '0s',
   },
 });
 
 export const heroGraphLineFrontend = style({
   vars: {
     [heroGraphLineColor]: '#B99B7E',
-    [heroGraphLineDelay]: '0.65s',
   },
 });
-const heroGraphLineProgressAnimation = keyframes({
-  '0%': {
-    strokeDashoffset: '100',
-    opacity: '0',
-  },
-  '8%': {
-    strokeDashoffset: '100',
-    opacity: '1',
-  },
-  '72%': {
-    strokeDashoffset: '0',
-    opacity: '1',
-  },
-  '86%': {
-    strokeDashoffset: '0',
-    opacity: '1',
-  },
-  '100%': {
-    strokeDashoffset: '0',
-    opacity: '0',
-  },
-});
+
 export const heroGraphLineTrack = style({
   stroke: '#D2CECA',
   strokeWidth: 3,
@@ -280,12 +259,10 @@ export const heroGraphLineTrack = style({
 export const heroGraphLineProgress = style({
   stroke: heroGraphLineColor,
   strokeWidth: 3,
-  strokeLinecap: 'butt',
+  strokeLinecap: 'round',
   strokeLinejoin: 'round',
   strokeDasharray: '100',
   strokeDashoffset: '100',
   opacity: 0,
-
-  animation: `${heroGraphLineProgressAnimation} 5.6s ease-in-out infinite`,
-  animationDelay: heroGraphLineDelay,
+  willChange: 'stroke-dashoffset, opacity',
 });
