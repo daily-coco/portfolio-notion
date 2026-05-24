@@ -51,6 +51,7 @@ function HeroGraphLine({ groupName }: { groupName: HeroGraphType['group'] }) {
 
       <path
         className={s.heroGraphLineProgress}
+        data-graph-line='progress'
         d={HERO_GRAPH_LINE_PATH}
         pathLength={100}
         vectorEffect='non-scaling-stroke'
@@ -78,18 +79,20 @@ export default function HeroSectionGraph() {
     () => {
       const root = graphRef.current;
       if (!root) return;
-      const q = gsap.utils.selector(root);
 
-      const progressLines = q('[data-graph-line="progress]') as SVGPathElement[];
+      const progressLines = Array.from(
+        root.querySelectorAll<SVGPathElement>('[data-graph-line="progress"]')
+      );
 
-      const items = q('[data-graph-item]') as HTMLElement[];
-      const icons = q('[data-graph-icon]') as HTMLElement[];
-      const labels = q('[data-graph-label]') as HTMLElement[];
+      const items = Array.from(root.querySelectorAll<HTMLElement>('[data-graph-item]'));
 
-      const finalItem = q('[data-graph-final="true"]')[0] as HTMLElement | undefined;
+      const icons = Array.from(root.querySelectorAll<HTMLElement>('[data-graph-icon]'));
+
+      const labels = Array.from(root.querySelectorAll<HTMLElement>('[data-graph-label]'));
+
+      const finalItem = root.querySelector<HTMLElement>('[data-graph-final="true"]');
 
       const finalIcon = finalItem?.querySelector<HTMLElement>('[data-graph-icon]') ?? null;
-
       const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
       if (reduceMotion) {
