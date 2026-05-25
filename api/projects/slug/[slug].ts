@@ -21,8 +21,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const slug = (req.query.slug as string)?.trim();
     if (!slug) return res.status(400).json({ message: 'slug is required' });
-    if (!isValidSlug(slug))
-      return res.status(400).json({ message: 'invalid slug' });
+    if (!isValidSlug(slug)) return res.status(400).json({ message: 'invalid slug' });
 
     setCdnCache(res, 600, 86400);
 
